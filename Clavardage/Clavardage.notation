@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmi:id="_t-ts4Az9EeqivJpjIlXZWg" type="UseCase" name="NewUseCaseDiagram" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmi:id="_t-ts4Az9EeqivJpjIlXZWg" type="UseCase" name="UseCaseAgent" measurementUnit="Pixel">
   <children xsi:type="notation:Shape" xmi:id="_vQzm4Az9EeqivJpjIlXZWg" type="Actor_Shape">
     <children xsi:type="notation:DecorationNode" xmi:id="_vRGh0Az9EeqivJpjIlXZWg" type="Actor_NameLabel">
       <layoutConstraint xsi:type="notation:Location" xmi:id="_vRGh0Qz9EeqivJpjIlXZWg" y="15"/>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Vdx8kA3gEeqb0O0iX0bQsg" name="installer">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Vf8fwA3gEeqb0O0iX0bQsg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_k6osIA3gEeqb0O0iX0bQsg" name="Admin"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_mjlm8A3gEeqb0O0iX0bQsg" name="Déployer Agent">
+    <include xmi:type="uml:Include" xmi:id="_QJx24A3hEeqb0O0iX0bQsg" addition="_pIqLwA3gEeqb0O0iX0bQsg"/>
+    <include xmi:type="uml:Include" xmi:id="_Q0fAwA3hEeqb0O0iX0bQsg" addition="_9PnS8A3gEeqb0O0iX0bQsg"/>
+    <include xmi:type="uml:Include" xmi:id="_TZAL8A3hEeqb0O0iX0bQsg" addition="_FtI44A3hEeqb0O0iX0bQsg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_pIqLwA3gEeqb0O0iX0bQsg" name="Copier le fichier sur le bureau"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_9PnS8A3gEeqb0O0iX0bQsg" name="Créer un raccourci pour l'utilisateur"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_FtI44A3hEeqb0O0iX0bQsg" name="Déployer sous Windows, Linux, MAC OS ou Android"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_PY7owA3hEeqb0O0iX0bQsg" memberEnd="_PY7oww3hEeqb0O0iX0bQsg _PY7oxA3hEeqb0O0iX0bQsg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PY7owQ3hEeqb0O0iX0bQsg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PY7owg3hEeqb0O0iX0bQsg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_PY7oww3hEeqb0O0iX0bQsg" name="déployer agent" type="_mjlm8A3gEeqb0O0iX0bQsg" association="_PY7owA3hEeqb0O0iX0bQsg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_PY7oxA3hEeqb0O0iX0bQsg" name="admin" type="_k6osIA3gEeqb0O0iX0bQsg" association="_PY7owA3hEeqb0O0iX0bQsg"/>
+  </packagedElement>
+</uml:Model>
