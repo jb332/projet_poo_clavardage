@@ -312,7 +312,7 @@
     <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_f96ZsAz_EeqivJpjIlXZWg" id="(0.8955223880597015,0.8032786885245902)"/>
     <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_f96ZsQz_EeqivJpjIlXZWg" id="(0.028469750889679714,0.32786885245901637)"/>
   </edges>
-  <edges xsi:type="notation:Connector" xmi:id="_lwCJVQz_EeqivJpjIlXZWg" type="Association_Edge" source="_PA4Q1Qz_EeqivJpjIlXZWg" target="_ReOdAAz_EeqivJpjIlXZWg">
+  <edges xsi:type="notation:Connector" xmi:id="_lwCJVQz_EeqivJpjIlXZWg" type="Association_Edge" source="_vQzm4Az9EeqivJpjIlXZWg" target="_ReOdAAz_EeqivJpjIlXZWg">
     <children xsi:type="notation:DecorationNode" xmi:id="_lwL6UAz_EeqivJpjIlXZWg" type="Association_NameLabel">
       <layoutConstraint xsi:type="notation:Location" xmi:id="_lwL6UQz_EeqivJpjIlXZWg" y="40"/>
     </children>
@@ -322,7 +322,7 @@
     <styles xsi:type="notation:FontStyle" xmi:id="_lwCJVgz_EeqivJpjIlXZWg"/>
     <element href="Clavardage.uml#_lwCJUAz_EeqivJpjIlXZWg"/>
     <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_lwCJVwz_EeqivJpjIlXZWg" points="[10, 14, -152, -290]$[160, 303, -2, -1]"/>
-    <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_lwomQAz_EeqivJpjIlXZWg" id="(0.06951871657754011,0.08984375)"/>
+    <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_lwomQAz_EeqivJpjIlXZWg" id="(1.0,0.8)"/>
     <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_lwomQQz_EeqivJpjIlXZWg" id="(0.0,0.4808743169398904)"/>
   </edges>
 </notation:Diagram>

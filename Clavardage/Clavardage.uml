@@ -66,6 +66,6 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lwCJUgz_EeqivJpjIlXZWg" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:type="uml:Property" xmi:id="_lwCJUwz_EeqivJpjIlXZWg" name="clavarder" type="_ReFTEAz_EeqivJpjIlXZWg" association="_lwCJUAz_EeqivJpjIlXZWg"/>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lwCJVAz_EeqivJpjIlXZWg" type="_PA4Q0Az_EeqivJpjIlXZWg" association="_lwCJUAz_EeqivJpjIlXZWg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_lwCJVAz_EeqivJpjIlXZWg" type="_vQgr8Az9EeqivJpjIlXZWg" association="_lwCJUAz_EeqivJpjIlXZWg"/>
   </packagedElement>
 </uml:Model>
