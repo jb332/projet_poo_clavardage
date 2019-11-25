@@ -4,8 +4,8 @@
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Actor" xmi:id="_vQgr8Az9EeqivJpjIlXZWg" name="User"/>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_xyA_YAz9EeqivJpjIlXZWg" name="démarrer session de clavardage">
-    <include xmi:type="uml:Include" xmi:id="__o0-MAz9EeqivJpjIlXZWg" addition="_7mntAAz9EeqivJpjIlXZWg"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_xyA_YAz9EeqivJpjIlXZWg" name="démarrer agent">
+    <include xmi:type="uml:Include" xmi:id="_QtGRUA-MEeqsRZQ2N3jr9Q" addition="_MHdCEAz-EeqivJpjIlXZWg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_4iZuEAz9EeqivJpjIlXZWg" memberEnd="_4ispAAz9EeqivJpjIlXZWg _4ispAQz9EeqivJpjIlXZWg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4ii4AAz9EeqivJpjIlXZWg" source="org.eclipse.papyrus">
@@ -14,21 +14,10 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_4ispAAz9EeqivJpjIlXZWg" name="démarrer session de clavardage" type="_xyA_YAz9EeqivJpjIlXZWg" association="_4iZuEAz9EeqivJpjIlXZWg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_4ispAQz9EeqivJpjIlXZWg" name="user" type="_vQgr8Az9EeqivJpjIlXZWg" association="_4iZuEAz9EeqivJpjIlXZWg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_7mntAAz9EeqivJpjIlXZWg" name="charger historique de conversation"/>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_MHdCEAz-EeqivJpjIlXZWg" name="choisirPseudo">
     <include xmi:type="uml:Include" xmi:id="_jzFw8Az-EeqivJpjIlXZWg" addition="_NJwzoAz-EeqivJpjIlXZWg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_NJwzoAz-EeqivJpjIlXZWg" name="vérifier unicité pseudo">
-    <include xmi:type="uml:Include" xmi:id="_kTbd4Az-EeqivJpjIlXZWg" addition="_ckmJ8Az-EeqivJpjIlXZWg"/>
-  </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_ckmJ8Az-EeqivJpjIlXZWg" name="informer utilisateur si échec"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_lF744Az-EeqivJpjIlXZWg" memberEnd="_lF744wz-EeqivJpjIlXZWg _lF745Az-EeqivJpjIlXZWg">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lF744Qz-EeqivJpjIlXZWg" source="org.eclipse.papyrus">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lF744gz-EeqivJpjIlXZWg" key="nature" value="UML_Nature"/>
-    </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lF744wz-EeqivJpjIlXZWg" name="choisirpseudo" type="_MHdCEAz-EeqivJpjIlXZWg" association="_lF744Az-EeqivJpjIlXZWg"/>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lF745Az-EeqivJpjIlXZWg" name="user" type="_vQgr8Az9EeqivJpjIlXZWg" association="_lF744Az-EeqivJpjIlXZWg"/>
-  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_NJwzoAz-EeqivJpjIlXZWg" name="vérifier unicité pseudo"/>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_pPAnEAz-EeqivJpjIlXZWg" name="changer pseudo">
     <include xmi:type="uml:Include" xmi:id="_ue3XIAz-EeqivJpjIlXZWg" addition="_NJwzoAz-EeqivJpjIlXZWg"/>
   </packagedElement>
@@ -40,7 +29,7 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_tj3HdAz-EeqivJpjIlXZWg" name="user" type="_vQgr8Az9EeqivJpjIlXZWg" association="_tj3HcAz-EeqivJpjIlXZWg"/>
   </packagedElement>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_w8qPQAz-EeqivJpjIlXZWg" name="réduire l'agent"/>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_AhLtEAz_EeqivJpjIlXZWg" name="consulter liste des utilisateurs"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_AhLtEAz_EeqivJpjIlXZWg" name="consulter liste des utilisateurs en ligne"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_KmE5cAz_EeqivJpjIlXZWg" memberEnd="_KmE5cwz_EeqivJpjIlXZWg _KmE5dAz_EeqivJpjIlXZWg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KmE5cQz_EeqivJpjIlXZWg" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KmE5cgz_EeqivJpjIlXZWg" key="nature" value="UML_Nature"/>
@@ -55,17 +44,31 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_PA4Q0wz_EeqivJpjIlXZWg" name="consulter liste des utilisateurs" type="_AhLtEAz_EeqivJpjIlXZWg" association="_PA4Q0Az_EeqivJpjIlXZWg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_PA4Q1Az_EeqivJpjIlXZWg" name="user" type="_vQgr8Az9EeqivJpjIlXZWg" association="_PA4Q0Az_EeqivJpjIlXZWg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_ReFTEAz_EeqivJpjIlXZWg" name="clavarder">
-    <include xmi:type="uml:Include" xmi:id="_ZDiBgAz_EeqivJpjIlXZWg" addition="_U-VGsAz_EeqivJpjIlXZWg"/>
-    <include xmi:type="uml:Include" xmi:id="_f9Ky0Az_EeqivJpjIlXZWg" addition="_ZyxGEAz_EeqivJpjIlXZWg"/>
-  </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_U-VGsAz_EeqivJpjIlXZWg" name="mettre en place jusqu'à 50 sessions simultanément"/>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_ZyxGEAz_EeqivJpjIlXZWg" name="garantir 99,99% de l'intégrité des messages"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_lwCJUAz_EeqivJpjIlXZWg" memberEnd="_lwCJUwz_EeqivJpjIlXZWg _lwCJVAz_EeqivJpjIlXZWg">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lwCJUQz_EeqivJpjIlXZWg" source="org.eclipse.papyrus">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lwCJUgz_EeqivJpjIlXZWg" key="nature" value="UML_Nature"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ZbjPMA-MEeqsRZQ2N3jr9Q" name="Se déconnecter"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_baNUQA-MEeqsRZQ2N3jr9Q" name="enregistrer message dans historique"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_KMUaAA-OEeqsRZQ2N3jr9Q" memberEnd="_KMUaAw-OEeqsRZQ2N3jr9Q _KMUaBA-OEeqsRZQ2N3jr9Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KMUaAQ-OEeqsRZQ2N3jr9Q" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KMUaAg-OEeqsRZQ2N3jr9Q" key="nature" value="UML_Nature"/>
     </eAnnotations>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lwCJUwz_EeqivJpjIlXZWg" name="clavarder" type="_ReFTEAz_EeqivJpjIlXZWg" association="_lwCJUAz_EeqivJpjIlXZWg"/>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_lwCJVAz_EeqivJpjIlXZWg" type="_vQgr8Az9EeqivJpjIlXZWg" association="_lwCJUAz_EeqivJpjIlXZWg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_KMUaAw-OEeqsRZQ2N3jr9Q" name="se déconnecter" type="_ZbjPMA-MEeqsRZQ2N3jr9Q" association="_KMUaAA-OEeqsRZQ2N3jr9Q"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_KMUaBA-OEeqsRZQ2N3jr9Q" type="_PA4Q0Az_EeqivJpjIlXZWg" association="_KMUaAA-OEeqsRZQ2N3jr9Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_WeUXIA-OEeqsRZQ2N3jr9Q" name="consulter messages"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cvR-4A-OEeqsRZQ2N3jr9Q" memberEnd="_cvR-4w-OEeqsRZQ2N3jr9Q _cvR-5A-OEeqsRZQ2N3jr9Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cvR-4Q-OEeqsRZQ2N3jr9Q" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cvR-4g-OEeqsRZQ2N3jr9Q" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cvR-4w-OEeqsRZQ2N3jr9Q" name="consulter messages" type="_WeUXIA-OEeqsRZQ2N3jr9Q" association="_cvR-4A-OEeqsRZQ2N3jr9Q"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cvR-5A-OEeqsRZQ2N3jr9Q" name="user" type="_vQgr8Az9EeqivJpjIlXZWg" association="_cvR-4A-OEeqsRZQ2N3jr9Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_gSN6IA-OEeqsRZQ2N3jr9Q" name="envoyer message">
+    <include xmi:type="uml:Include" xmi:id="_i8XzQA-OEeqsRZQ2N3jr9Q" addition="_baNUQA-MEeqsRZQ2N3jr9Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_iBqegA-OEeqsRZQ2N3jr9Q" memberEnd="_iBqegw-OEeqsRZQ2N3jr9Q _iBqehA-OEeqsRZQ2N3jr9Q">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iBqegQ-OEeqsRZQ2N3jr9Q" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iBqegg-OEeqsRZQ2N3jr9Q" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_iBqegw-OEeqsRZQ2N3jr9Q" name="envoyer message" type="_gSN6IA-OEeqsRZQ2N3jr9Q" association="_iBqegA-OEeqsRZQ2N3jr9Q"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_iBqehA-OEeqsRZQ2N3jr9Q" type="_cvR-4A-OEeqsRZQ2N3jr9Q" association="_iBqegA-OEeqsRZQ2N3jr9Q"/>
   </packagedElement>
 </uml:Model>
