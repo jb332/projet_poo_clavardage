@@ -5,5 +5,5 @@ public class Clavardage {
 		GUI guy = new GUI();
 		guy.displayThings();
 	}
-
+	
 }
