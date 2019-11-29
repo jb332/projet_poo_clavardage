@@ -2,6 +2,7 @@ import java.net.*;
 import java.io.*;
 public class NetworkManager {
 	
+	
 		public NetworkManager() {
 			
 		}
@@ -12,7 +13,7 @@ public class NetworkManager {
 
 			byte buffer[] = login.getBytes();
 			DatagramPacket dataSend = new DatagramPacket(buffer, buffer.length, addbroadcast, port_connexion);
-			DatagramSocket socket = new DatagramSocket();
+			DatagramSocket socket = new DatagramSocket(port_connexion);
 			socket.send(dataSend);
 			//réception réponse
 			byte bufferReception[] = new byte[10];
@@ -42,15 +43,15 @@ public class NetworkManager {
 		
 	}
 	
-	public void listenMessage() throws Exception {
+	public String listenMessage() throws Exception {
 		ServerSocket servSocket = new ServerSocket(port_message);
-		receiveMessage(servSocket);
+		return receiveMessage(servSocket);
 	}
 	public void receiveConnexionRequest(String mylogin) throws Exception {
 		
 		
 		byte bufferReception[] = new byte[10];
-		DatagramSocket socket = new DatagramSocket();
+		DatagramSocket socket = new DatagramSocket(port_connexion);
 		DatagramPacket dataReceived = new DatagramPacket(bufferReception, bufferReception.length);
 		socket.receive(dataReceived);
 		String login = dataReceived.getData().toString();
