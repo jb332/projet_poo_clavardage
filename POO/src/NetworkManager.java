@@ -41,6 +41,11 @@ public class NetworkManager {
 		return message;
 		
 	}
+	
+	public void listenMessage() throws Exception {
+		ServerSocket servSocket = new ServerSocket(port_message);
+		receiveMessage(servSocket);
+	}
 	public void receiveConnexionRequest(String mylogin) throws Exception {
 		
 		
