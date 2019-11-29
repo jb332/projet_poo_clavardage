@@ -7,12 +7,11 @@ public class NetworkManager {
 		}
 		final int port_connexion = 10000;
 		final int port_message = 20000;
-	public boolean sendConnectionResquest(String login) throws Exception {
+	public boolean sendConnectionResquest(String login, InetAddress addbroadcast) throws Exception {
 			//emission de la demande
-			byte addbroadcast[] = {127, 127, 127, 127};
-			InetAddress broadcast = InetAddress.getByAddress(addbroadcast);
+
 			byte buffer[] = login.getBytes();
-			DatagramPacket dataSend = new DatagramPacket(buffer, buffer.length, broadcast, port_connexion);
+			DatagramPacket dataSend = new DatagramPacket(buffer, buffer.length, addbroadcast, port_connexion);
 			DatagramSocket socket = new DatagramSocket();
 			socket.send(dataSend);
 			//réception réponse
@@ -24,10 +23,8 @@ public class NetworkManager {
 				
 		}
 	
-	public void sendMessage(String message) throws Exception{
+	public void sendMessage(String message, InetAddress adressedest) throws Exception{
 		
-		byte adddest[] = {127, 127, 127, 127};
-		InetAddress adressedest = InetAddress.getByAddress(adddest);
 		Socket socket = new Socket(adressedest, port_message);
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream()); 
 		oos.writeObject(message);
