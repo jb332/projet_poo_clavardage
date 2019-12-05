@@ -1,4 +1,4 @@
-package clavardage;
+ package clavardage;
 
 import java.io.ObjectOutputStream;
 import java.net.*;
@@ -58,6 +58,10 @@ public class Clavardage {
 
     public User getMe() {
         return this.me;
+    }
+    
+    public History getConnectedUsersHistory() {
+    	return this.connectedUsersHistory;
     }
 
     public static void main(String[] args) {

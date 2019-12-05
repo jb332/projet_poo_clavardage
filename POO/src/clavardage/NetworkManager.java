@@ -2,17 +2,20 @@ package clavardage;
 
 import java.net.*;
 import java.io.*;
+
+
 public class NetworkManager {
 
     private Clavardage chat;
 
-    final int port_connexion = 10000;
-    final int port_message = 20000;
+    public static final int port_connexion = 10000;
+    public static final int port_message = 20000;
 
     public NetworkManager(Clavardage chat) {
         this.chat = chat;
         //create and launch a thread to answer connection requests
         //create and launch a thread to store incoming messages
+        new MessageReceiving(chat);
     }
 
     public void sendMessage(Message message) {
@@ -54,14 +57,7 @@ public class NetworkManager {
 
     }
 
-    public String receiveMessage(ServerSocket servSocket) throws Exception {
-        Socket link = servSocket.accept();
-        ObjectInputStream ios = new ObjectInputStream(link.getInputStream());
-        String message = (String) ios.readObject();
-        link.close();
-        return message;
 
-    }
     public void receiveConnexionRequest(String mylogin) throws Exception {
         System.out.println("in receiveConnectionRequest method");
 

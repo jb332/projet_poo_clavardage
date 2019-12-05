@@ -26,7 +26,7 @@ public class MessageReceivingThread extends Thread {
             Message receivedMessage = new Message(line, sender, receiver);
 
             this.chat.storeReceivedMessage(receivedMessage);
-            ObjectOutputStream oos = new ObjectOutputStream(this.link.getOutputStream());
+             ObjectOutputStream oos = new ObjectOutputStream(this.link.getOutputStream());
 
             oos.writeObject("test message");
             oos.close();
