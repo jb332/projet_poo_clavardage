@@ -67,6 +67,10 @@ public class Clavardage {
     public History getConnectedUsersHistory() {
     	return this.connectedUsersHistory;
     }
+    
+    public void chooseLogin(String login) {
+    		this.me = new User(login);
+    }
 
     public static void main(String[] args) {
         Clavardage chat = new Clavardage();
@@ -83,6 +87,7 @@ public class Clavardage {
                     break;
                 case "r":
                 case "receive":
+                	chat.chooseLogin("jb32");
                     break;
                 default:
                     System.out.println("Bad argument usage");
