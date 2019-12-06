@@ -80,9 +80,9 @@ public class Clavardage {
                 case "s":
                 case "send":
                     try {
-                        chat.net.sendConnectionResquest("jb32", InetAddress.getByName("10.32.0.245")/*InetAddress.getByName("255.255.255.255")*/);
+                        chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.32.0.245")/*InetAddress.getByName("255.255.255.255")*/);
                     } catch(Exception e) {
-                        System.out.println("connection request sending error");
+                        System.out.println(e);
                     }
                     break;
                 case "r":

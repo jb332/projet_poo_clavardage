@@ -20,6 +20,7 @@ public class ConnectionRequestListeningThread extends Thread {
         DatagramPacket dataReceived = new DatagramPacket(bufferReception, bufferReception.length);
         link.receive(dataReceived);
         String donnees = dataReceived.getData().toString();
+        link.close();
         String[] infos = donnees.split(","); //infos[0] = login, infos[1] = Adresse MAC
         String answer = "";
         if (this.chat.getConnectedUsersHistory().getLogins().indexOf(infos[0]) != -1)
@@ -30,14 +31,13 @@ public class ConnectionRequestListeningThread extends Thread {
             User user = new User(infos[0], ipadr, infos[1]);
             this.chat.storeNewUser(user);
         }
-
         byte buffer[] = answer.getBytes();
         DatagramPacket dataSend = new DatagramPacket(buffer, buffer.length, dataReceived.getAddress(), NetworkManager.port_connexion);
         DatagramSocket answerLink = new DatagramSocket();
         answerLink.send(dataSend);
         //réception réponse
 
-        link.close();
+        
         answerLink.close();
     	}
     	
