@@ -40,9 +40,11 @@ public class NetworkManager {
 
         //réception réponse
         byte bufferReception[] = new byte[10];
+        DatagramSocket socketreception = new DatagramSocket(port_connexion);
         DatagramPacket dataReceived = new DatagramPacket(bufferReception, bufferReception.length);
-        socket.receive(dataReceived);
+        socketreception.receive(dataReceived);
         socket.close();
+        socketreception.close();
 
         if(dataReceived.getData().toString().equals("ok")) {
         	System.out.println("Connexion établie");

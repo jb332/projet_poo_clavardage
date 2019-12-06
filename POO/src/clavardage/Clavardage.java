@@ -69,7 +69,7 @@ public class Clavardage {
     }
     
     public void chooseLogin(String login) {
-    		this.me = new User(login);
+    		this.me = new User(login, "", "");
     }
 
     public static void main(String[] args) {
@@ -87,7 +87,7 @@ public class Clavardage {
                     break;
                 case "r":
                 case "receive":
-                	chat.chooseLogin("jb32");
+                	chat.chooseLogin("jb33");
                     break;
                 default:
                     System.out.println("Bad argument usage");
