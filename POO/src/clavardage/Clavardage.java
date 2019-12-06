@@ -76,18 +76,13 @@ public class Clavardage {
                 case "s":
                 case "send":
                     try {
-                        chat.net.sendConnectionResquest("jb32", InetAddress.getByName("localhost")/*InetAddress.getByName("255.255.255.255")*/);
+                        chat.net.sendConnectionResquest("jb32", InetAddress.getByName("10.32.0.245")/*InetAddress.getByName("255.255.255.255")*/);
                     } catch(Exception e) {
                         System.out.println("connection request sending error");
                     }
                     break;
                 case "r":
                 case "receive":
-                    try {
-                        chat.net.receiveConnexionRequest("kikidu32");
-                    } catch(Exception e) {
-                        System.out.println("connection request receiving error");
-                    }
                     break;
                 default:
                     System.out.println("Bad argument usage");

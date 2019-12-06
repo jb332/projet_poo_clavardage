@@ -30,7 +30,7 @@ public class NetworkManager {
 
 
 
-    public boolean sendConnectionResquest(String login, InetAddress addbroadcast) throws Exception {
+    public void sendConnectionResquest(String login, InetAddress addbroadcast) throws Exception {
         System.out.println("in sendConnectionRequest method");
         //emission de la demande
         byte buffer[] = login.getBytes();
@@ -44,7 +44,10 @@ public class NetworkManager {
         socket.receive(dataReceived);
         socket.close();
 
-        return dataReceived.getData().toString().equals("ok");
+        if(dataReceived.getData().toString().equals("ok"))
+        	System.out.println("Connexion établie");
+        else
+        	System.out.println("Nous n'avons pas pu vous connecter et nous en sommes désolé. Mais il faut savoir que c'est une bêta et puis nous n'avons pas beaucoup de subventions...");
 
     }
 
@@ -58,6 +61,7 @@ public class NetworkManager {
 
     }
 
+    /*
 
     public void receiveConnexionRequest(String mylogin) throws Exception {
         System.out.println("in receiveConnectionRequest method");
@@ -82,4 +86,5 @@ public class NetworkManager {
         socket.close();
 
     }
+    */
 }
