@@ -34,6 +34,10 @@ public class Clavardage {
         this.db.storeMessage(message);
         this.mainWindow.notifyMessageReception(message);
     }
+    
+    public void storeNewUser(User user) {
+    	this.db.storeUser(user);
+    }
 
     public boolean sendMessage(User recipient, String messageContent) {
         Message message = new Message(messageContent, this.me, recipient);

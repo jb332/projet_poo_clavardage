@@ -14,6 +14,10 @@ public class DataBaseInterface {
         // TODO Auto-generated method stub
 
     }
+    
+    public void storeUser(User user) {
+    	
+    }
 
     public void getUsers(ArrayList<User> connectedUsers) {
 

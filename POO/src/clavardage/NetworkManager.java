@@ -14,6 +14,7 @@ public class NetworkManager {
     public NetworkManager(Clavardage chat) {
         this.chat = chat;
         //create and launch a thread to answer connection requests
+        new ConnectionRequestListeningThread(chat);
         //create and launch a thread to store incoming messages
         new MessageReceiving(chat);
     }
