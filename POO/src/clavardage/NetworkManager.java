@@ -9,6 +9,7 @@ public class NetworkManager {
     private Clavardage chat;
 
     public static final int port_connexion = 10000;
+    public static final int port_reponse_connexion = 10001;
     public static final int port_message = 20000;
 
     public NetworkManager(Clavardage chat) {
@@ -40,7 +41,7 @@ public class NetworkManager {
 
         //réception réponse
         byte bufferReception[] = new byte[10];
-        DatagramSocket socketreception = new DatagramSocket(port_connexion);
+        DatagramSocket socketreception = new DatagramSocket(port_reponse_connexion);
         DatagramPacket dataReceived = new DatagramPacket(bufferReception, bufferReception.length);
         socketreception.receive(dataReceived);
         socket.close();
