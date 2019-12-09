@@ -34,7 +34,8 @@ public class NetworkManager {
     public boolean sendConnectionResquest(String login, InetAddress addbroadcast) throws Exception {
         System.out.println("in sendConnectionRequest method");
         //emission de la demande
-        byte buffer[] = login.getBytes();
+        String envoi = login+",tesst";
+        byte buffer[] = envoi.getBytes();
         DatagramPacket dataSend = new DatagramPacket(buffer, buffer.length, addbroadcast, port_connexion);
         DatagramSocket socket = new DatagramSocket();
         socket.send(dataSend);
@@ -46,14 +47,14 @@ public class NetworkManager {
         socketreception.receive(dataReceived);
         socket.close();
         socketreception.close();
-
-        if(dataReceived.getData().toString().equals("ok")) {
+        String answer = new String(dataReceived.getData());
+        System.out.println(answer);
+        if(!answer.equals("no")) {
         	System.out.println("Connexion établie");
         	return true;
         }
         else {
-        	System.out.println("Nous n'avons pas pu vous connecter et nous en sommes désolé. "
-        			+ "Mais il faut savoir que c'est une bêta et puis en plus on n'a pas beaucoup de subventions...");
+        	System.out.println("Nous n'avons pas pu vous connecter");
         	return false;
         }
 
