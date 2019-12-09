@@ -19,7 +19,7 @@ public class ConnectionRequestListeningThread extends Thread {
         byte bufferReception[] = new byte[10];
         DatagramPacket dataReceived = new DatagramPacket(bufferReception, bufferReception.length);
         link.receive(dataReceived);
-        String donnees = dataReceived.getData().toString();
+        String donnees = new String(dataReceived.getData());
         String[] infos = donnees.split(","); //infos[0] = login, infos[1] = Adresse MAC
         String answer = "";
         if (this.chat.getConnectedUsersHistory().getLogins().indexOf(infos[0]) != -1)

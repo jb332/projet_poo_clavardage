@@ -72,18 +72,16 @@ public class Clavardage {
     		this.me = new User(login, "", "");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Clavardage chat = new Clavardage();
 
         if(args.length != 0) {
             switch(args[0]) {
                 case "s":
-                case "send":
-                    try {
-                        chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91")/*InetAddress.getByName("255.255.255.255")*/);
-                    } catch(Exception e) {
-                        System.out.println(e);
-                    }
+                case "send":                    
+                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"))) {
+                        	chat.net.sendMessage("je t'envoie un message", InetAddress.getByName("10.1.5.91"));
+                        }                  	               
                     break;
                 case "r":
                 case "receive":
