@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Enumeration;
 
 public class Clavardage {
     public NetworkManager net;
@@ -73,6 +74,7 @@ public class Clavardage {
     }
 
 
+
     public static void main(String[] args) throws Exception {
 
         Clavardage chat = new Clavardage();
@@ -97,11 +99,13 @@ public class Clavardage {
         }
         */
         
+        /* Test envoi message 
+        
         if(args.length != 0) {
         	switch(args[0]) {
             case "s":
             case "send":
-            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.1.5.91"));
+            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.32.1.233"));
             	break;
             case "r":
             case "receive":
@@ -113,6 +117,9 @@ public class Clavardage {
         	}
         	
         }
+        */
+User test = new User("oui");
+System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
     }
     
 }
