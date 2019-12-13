@@ -72,15 +72,15 @@ public class Clavardage {
     		this.me = new User(login, "", "");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Clavardage chat = new Clavardage();
-
+        /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {
                 case "s":
                 case "send":
                     try {
-                        chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91")/*InetAddress.getByName("255.255.255.255")*/);
+                        chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"));
                     } catch(Exception e) {
                         System.out.println(e);
                     }
@@ -93,5 +93,24 @@ public class Clavardage {
                     System.out.println("Bad argument usage");
             }
         }
+        */
+        
+        if(args.length != 0) {
+        	switch(args[0]) {
+            case "s":
+            case "send":
+            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.1.5.91"));
+            	break;
+            case "r":
+            case "receive":
+            	chat.chooseLogin("jb32");
+                break;
+            default:
+                System.out.println("Bad argument usage");
+                
+        	}
+        	
+        }
     }
+    
 }

@@ -14,7 +14,7 @@ public class MessageReceiving extends Thread {
 
     public void run() {
         try {
-            ServerSocket servSocket = new ServerSocket(portNumber);
+            ServerSocket servSocket = new ServerSocket(NetworkManager.port_message);
 
             Socket link;
             while(true) {
