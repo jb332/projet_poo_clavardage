@@ -72,18 +72,29 @@ public class Clavardage {
     		this.me = new User(login, "", "");
     }
 
+<<<<<<< HEAD
     public static void main(String[] args) throws Exception {
+=======
+    public static void main(String[] args) throws Exception{
+>>>>>>> dd1efad9619b9f018a2e38c4cdc17e03427eed59
         Clavardage chat = new Clavardage();
         /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {
                 case "s":
+<<<<<<< HEAD
                 case "send":
                     try {
                         chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"));
                     } catch(Exception e) {
                         System.out.println(e);
                     }
+=======
+                case "send":                    
+                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"))) {
+                        	chat.net.sendMessage("je t'envoie un message", InetAddress.getByName("10.1.5.91"));
+                        }                  	               
+>>>>>>> dd1efad9619b9f018a2e38c4cdc17e03427eed59
                     break;
                 case "r":
                 case "receive":
