@@ -3,6 +3,7 @@ package clavardage;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class DataBaseInterface {
 
@@ -42,18 +43,36 @@ public class DataBaseInterface {
         }
 
         //test
-        //this.storeMessage(new Message("salut !", MessageWay.SENT), new User("perlotte"));
+        this.storeMessage(new Message("salut !", MessageWay.SENT), new User("perlotte", "255.255.255.255", "ff:ff:ff:ff:ff:ff"));
     }
 
-    public void storeMessage(Message message, User sender) {
+    public void storeMessage(Message message, User distantUser) {
+        String content = "'"+message.getContent()+"'";
+        String sender = null;
+        String receiver = null;
+        if(message.isSent()) {
+            sender = "'f8:28:19:73:f2:1f'";
+            receiver = "'"+distantUser.getMacAddress()+"'";
+        } else {
+            sender = "'"+distantUser.getMacAddress()+"'";
+            receiver = "'f8:28:19:73:f2:1f'";
+        }
+        String date = "'"+message.getDateTime().getYear()+"-"+message.getDateTime().getMonthValue()+"-"+message.getDateTime().getDayOfMonth()+"'";
+        String time = "'"+message.getDateTime().getHour()+":"+message.getDateTime().getMinute()+":"+message.getDateTime().getSecond()+"'";
+
         try {
-            this.connection.createStatement().execute("" +
-                    "INSERT INTO messages VALUES ('Salut !', 'f8:28:19:73:f2:1f', 'f8:28:19:73:f2:1f', '2019-12-15', '3:29:58')"
-            );
-        } catch(SQLException e) {
-            System.out.println("Statement error : ");
+            String sqlRequest = "INSERT INTO messages VALUES ("+content+", "+sender+", "+receiver+", "+date+", "+time+")";
+            //System.out.println(sqlRequest);
+            this.connection.createStatement().execute(sqlRequest);
+            System.out.println("Message stored correctly");
+        } catch (SQLException e) {
+            System.out.println("Statement error : message could not be stored : ");
             System.out.println(e);
         }
+    }
+
+    public ArrayList<Message> getMessages(User user) {
+        return null;
     }
 
     /*
@@ -140,5 +159,8 @@ public class DataBaseInterface {
 
 
 
+    }
+
+    public void storeUser(User user) {
     }
 }

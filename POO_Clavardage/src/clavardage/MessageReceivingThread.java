@@ -19,17 +19,15 @@ public class MessageReceivingThread extends Thread {
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             String line = reader.readLine();
+            System.out.println(line);
 
             String senderIP = this.link.getRemoteSocketAddress().toString();
-
-            User sender = this.chat.getUserFromIP(senderIP);
+            // User sender = this.chat.getUserFromIP(senderIP);
+            //User receiver = this.chat.getMe();
             Message receivedMessage = new Message(line, MessageWay.RECEIVED);
 
-            this.chat.storeReceivedMessage(receivedMessage, sender);
-            ObjectOutputStream oos = new ObjectOutputStream(this.link.getOutputStream());
+            this.chat.storeReceivedMessage(receivedMessage, new User("toto", "", ""));
 
-            oos.writeObject("test message");
-            oos.close();
         } catch(IOException e) {
             System.out.println(e);
         }

@@ -89,4 +89,12 @@ public class History {
         }
         return messages;
     }
+
+    public ArrayList<String> getLogins() {
+        ArrayList<String> logins = new ArrayList<String>();
+        for(UserData ud: this.history) {
+            logins.add(ud.getUser().getLogin());
+        }
+        return logins;
+    }
 }

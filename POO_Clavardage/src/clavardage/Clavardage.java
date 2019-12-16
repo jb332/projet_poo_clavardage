@@ -35,9 +35,19 @@ public class Clavardage {
         this.mainWindow.notifyMessageReception(message, sender);
     }
 
-    public boolean sendMessage(User receiver, String messageContent) {
+    public void storeNewUser(User user) {
+        this.db.storeUser(user);
+    }
+
+    public boolean sendMessage(String messageContent, String receiverLogin) {
         Message message = new Message(messageContent, MessageWay.SENT);
-        this.net.sendMessage(message, receiver);
+        User receiver = getUserFromLogin(receiverLogin);
+
+        try {
+            this.net.sendMessage(message, receiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         this.mainWindow.notifyMessageSent(message, receiver);
         this.db.storeMessage(message, receiver);
         return false;
@@ -72,29 +82,58 @@ public class Clavardage {
         return this.me;
     }
 
+    public History getConnectedUsersHistory() {
+        return this.connectedUsersHistory;
+    }
+
+    public void chooseLogin(String login) {
+        this.me = new User(login, "", "");
+    }
+
     public static void main(String[] args) {
         Clavardage chat = new Clavardage();
-//        if(args.length != 0) {
-//            switch(args[0]) {
-//                case "s":
-//                case "send":
-//                    try {
-//                        chat.net.sendConnectionResquest("jb32", InetAddress.getByName("localhost")/*InetAddress.getByName("255.255.255.255")*/);
-//                    } catch(Exception e) {
-//                        System.out.println("connection request sending error");
-//                    }
-//                    break;
-//                case "r":
-//                case "receive":
-//                    try {
-//                        chat.net.receiveConnexionRequest("kikidu32");
-//                    } catch(Exception e) {
-//                        System.out.println("connection request receiving error");
-//                    }
-//                    break;
-//                default:
-//                    System.out.println("Bad argument usage");
-//            }
-//        }
+        /* Test Connexion UDP
+        if(args.length != 0) {
+            switch(args[0]) {
+                case "s":
+
+                case "send":
+                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"))) {
+                        	chat.net.sendMessage("je t'envoie un message", InetAddress.getByName("10.1.5.91"));
+                        }
+
+                    break;
+                case "r":
+                case "receive":
+                	chat.chooseLogin("jb32");
+                    break;
+                default:
+                    System.out.println("Bad argument usage");
+            }
+        }
+        */
+
+        /* Test envoi message
+
+        if(args.length != 0) {
+        	switch(args[0]) {
+            case "s":
+            case "send":
+            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.32.1.233"));
+            	break;
+            case "r":
+            case "receive":
+            	chat.chooseLogin("jb32");
+                break;
+            default:
+                System.out.println("Bad argument usage");
+
+        	}
+
+        }
+        */
+        User test = new User("oui");
+        System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
     }
+
 }
