@@ -98,8 +98,8 @@ public class Clavardage {
                 case "s":
 
                 case "send":
-                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"))) {
-                        	chat.net.sendMessage("je t'envoie un message", InetAddress.getByName("10.1.5.91"));
+                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.230"))) {
+
                         }
 
                     break;
@@ -111,7 +111,7 @@ public class Clavardage {
                     System.out.println("Bad argument usage");
             }
         }
-        */
+*/
 
         /* Test envoi message */
 
@@ -119,7 +119,9 @@ public class Clavardage {
         	switch(args[0]) {
             case "s":
             case "send":
-            	chat.net.sendMessage(new Message("c'est le test", MessageWay.SENT), new User("jb32", "10.1.5.230", ""));
+                User dest = new User("jb32", "10.1.5.230", "");
+            	chat.net.sendMessage(new Message("     test     et   un  ett deux  et trois    ", MessageWay.SENT), dest );
+                chat.net.sendMessage(new Message("     Cest parti mon peeeeetiiiiit    ", MessageWay.SENT), dest );
             	break;
             case "r":
             case "receive":

@@ -18,7 +18,7 @@ public class DataBaseInterface {
         this.chat = chat;
 
         //meant to be used only once
-        //createDataBase();
+        createDataBase();
 
         String connectionURL = "jdbc:derby:" + this.dataBaseName;
         try {

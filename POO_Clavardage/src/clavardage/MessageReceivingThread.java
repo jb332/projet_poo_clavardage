@@ -26,7 +26,7 @@ public class MessageReceivingThread extends Thread {
             //User receiver = this.chat.getMe();
             Message receivedMessage = new Message(line, MessageWay.RECEIVED);
 
-            this.chat.storeReceivedMessage(receivedMessage, new User("toto", "", ""));
+            //this.chat.storeReceivedMessage(receivedMessage, new User("toto", "", ""));
 
         } catch(IOException e) {
             System.out.println(e);

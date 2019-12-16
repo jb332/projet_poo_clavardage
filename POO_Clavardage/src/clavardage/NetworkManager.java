@@ -63,8 +63,8 @@ public class NetworkManager {
     public void sendMessage(Message message, User receiver) throws Exception{
         InetAddress destAddr = InetAddress.getByName(receiver.getIpAddress());
         Socket socket = new Socket(destAddr, port_message);
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.writeObject(message.getContent());
+        DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
+        oos.writeChars(message.getContent());
         oos.close();
         socket.close();
     }
