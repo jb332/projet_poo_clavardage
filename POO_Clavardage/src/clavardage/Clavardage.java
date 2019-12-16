@@ -90,7 +90,7 @@ public class Clavardage {
         this.me = new User(login, "", "");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Clavardage chat = new Clavardage();
         /* Test Connexion UDP
         if(args.length != 0) {
@@ -113,13 +113,13 @@ public class Clavardage {
         }
         */
 
-        /* Test envoi message
+        /* Test envoi message */
 
         if(args.length != 0) {
         	switch(args[0]) {
             case "s":
             case "send":
-            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.32.1.233"));
+            	chat.net.sendMessage(new Message("c'est le test", MessageWay.SENT), new User("jb32", "10.1.5.230", ""));
             	break;
             case "r":
             case "receive":
@@ -131,9 +131,8 @@ public class Clavardage {
         	}
 
         }
-        */
-        User test = new User("oui");
-        System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
+
+
     }
 
 }
