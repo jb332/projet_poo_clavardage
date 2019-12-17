@@ -10,8 +10,10 @@ public class CommunicationWindow implements ActionListener {
 
     private JPanel historyPane;
     private JPanel usersPane;
-    private JPanel sendPane;
     private JFrame frame;
+    private JTextField sendTextZone;
+
+    private User selectedUser;
 
     public CommunicationWindow(Clavardage chat) {
         this.chat = chat;
@@ -42,8 +44,6 @@ public class CommunicationWindow implements ActionListener {
 
         this.historyPane.removeAll();
 
-        //System.out.println(this.historyPane.getComponents());
-
         for(Message currentMessage : messages) {
             MessageBubble currentMessageBubble = new MessageBubble(currentMessage);
             this.historyPane.add(currentMessageBubble);
@@ -51,34 +51,7 @@ public class CommunicationWindow implements ActionListener {
 
         this.historyPane.revalidate();
         this.historyPane.repaint();
-
-        //System.out.println(this.messagesPane.getComponents());
     }
-
-    /*
-    private Component createComponents() {
-        ArrayList<User> users = this.chat.getUsers();
-        this.usersPane = new JPanel(new GridLayout(0, 1));
-
-        for(User currentUser : users) {
-            UserButton currentUserButton = new UserButton(currentUser);
-            currentUserButton.addActionListener(this);
-            this.usersPane.add(currentUserButton);
-        }
-
-        this.messagesPane = new JPanel(new GridLayout(0, 1));
-        this.sendZone = createSendZone();
-
-        User arbitraryUserWhoseMessagesAreDisplayedFirst = users.get(0);
-        loadMessages(arbitraryUserWhoseMessagesAreDisplayedFirst);
-
-        JPanel pane = new JPanel(new GridLayout(1, 2));
-        pane.add(this.usersPane);
-        pane.add(this.messagesPane);
-
-        return pane;
-    }
-    */
 
     private void initializeGUI() {
         try {
@@ -88,34 +61,12 @@ public class CommunicationWindow implements ActionListener {
             e.printStackTrace();
         }
 
-        //pane for users (save)
-        /*
-        ArrayList<User> users = this.chat.getUsers();
-        this.usersPane = new JPanel();
-
-        this.usersPane.setLayout(new BoxLayout(usersPane, BoxLayout.Y_AXIS));
-
-        for(User currentUser : users) {
-            UserButton currentUserButton = new UserButton(currentUser);
-
-            currentUserButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            //currentUserButton.setPreferredSize(new Dimension(500, 40));
-            currentUserButton.addActionListener(this);
-
-            currentUserButton.setMinimumSize(new Dimension(500, 40));
-
-            this.usersPane.add(currentUserButton);
-        }
-        */
-
         //pane for users
         ArrayList<User> users = this.chat.getUsers();
         this.usersPane = new JPanel(new GridLayout(0, 1));
 
         for(User currentUser : users) {
             UserButton currentUserButton = new UserButton(currentUser);
-
-            //currentUserButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             currentUserButton.addActionListener(this);
 
             this.usersPane.add(currentUserButton);
@@ -128,29 +79,13 @@ public class CommunicationWindow implements ActionListener {
         c.weighty = 0.2;
         usersCenterPane.add(this.usersPane, c);
 
-
-        /*
-        JPanel usersPanel = new JPanel(new GridLayout(0, 1));
-        for (int i = 0; i < 6; i++) {
-            buttonPanel.add(new JButton("Button " + i));
-        }
-        buttonPanel.add(new JButton("Truc"));
-        GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.NORTHWEST;
-        buttonCenter.add(buttonPanel, c);
-        */
-
-
-
-
         //scroll pane for users at the left of the window
-        //SAVE : JScrollPane usersScrollPane = new JScrollPane(this.usersPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         JScrollPane usersScrollPane = new JScrollPane(usersCenterPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         //pane for messages history
         this.historyPane = new JPanel();
-        User arbitraryUserWhoseMessagesAreDisplayedFirst = users.get(0);
-        loadMessages(arbitraryUserWhoseMessagesAreDisplayedFirst);
+        this.selectedUser = users.get(0);
+        loadMessages(selectedUser);
 
 
         //scroll pane for messages history
@@ -158,19 +93,20 @@ public class CommunicationWindow implements ActionListener {
 
 
         //pane for send zone at the bottom right of the window
-        JTextField sendTextZone = new JTextField();
+        this.sendTextZone = new JTextField();
         JButton sendButton = new JButton(">");
-        this.sendPane = new JPanel();
-        this.sendPane.setLayout(new BorderLayout());
-        this.sendPane.add(sendTextZone);
-        this.sendPane.add(sendButton, BorderLayout.EAST);
+        sendButton.addActionListener(this);
+        JPanel sendPane = new JPanel();
+        sendPane.setLayout(new BorderLayout());
+        sendPane.add(this.sendTextZone);
+        sendPane.add(sendButton, BorderLayout.EAST);
 
 
         //pane for messages at the right of the window
         JPanel messagesPane = new JPanel();
         messagesPane.setLayout(new BorderLayout());
         messagesPane.add(historyScrollPane);
-        messagesPane.add(this.sendPane, BorderLayout.SOUTH);
+        messagesPane.add(sendPane, BorderLayout.SOUTH);
 
 
         //main panel (split panel with a divider)
@@ -183,6 +119,7 @@ public class CommunicationWindow implements ActionListener {
         //window
         this.frame = new JFrame("Tu veux-tu clavarder avec moi ?");
         this.frame.setSize(300,800);
+
         this.frame.setBounds(100, 100, 450, 300);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.getContentPane().add(mainPane, BorderLayout.CENTER);
@@ -190,16 +127,39 @@ public class CommunicationWindow implements ActionListener {
         this.frame.setVisible(true);
     }
 
+    public void sendMessage(Message messageSent, User receiver) {
+        //send the message over the network
+        this.chat.sendMessage(messageSent, receiver);
+
+        //store the message in the database
+        this.chat.storeSentMessage(messageSent, receiver);
+
+        //display the message in history
+        MessageBubble messageSentBubble = new MessageBubble(messageSent);
+        this.historyPane.add(messageSentBubble);
+        this.historyPane.revalidate();
+        this.historyPane.repaint();
+
+        //remove the text in the sendTextZone
+        this.sendTextZone.setText("");
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
-        String selectedUserLogin = event.getActionCommand();
-        User selectedUser = this.chat.getUserFromLogin(selectedUserLogin);
-        loadMessages(selectedUser);
+        String buttonName = event.getActionCommand();
+        if(buttonName.equals(">")) {
+            Message messageSent = new Message(this.sendTextZone.getText(), MessageWay.SENT);
+            sendMessage(messageSent, this.selectedUser);
+        } else {
+            User selectedUser = this.chat.getUserFromLogin(buttonName);
+            loadMessages(selectedUser);
+        }
     }
 
     public void start() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                initializeGUI();
                 initializeGUI();
             }
         });

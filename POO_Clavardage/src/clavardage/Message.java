@@ -3,21 +3,20 @@ package clavardage;
 import java.time.LocalDateTime;
 
 public class Message {
-    private LocalDateTime dateTime;
     private String content;
     private MessageWay way;
-    /*
-    private User sender;
-    private User receiver;
-    */
-    public Message(String content, MessageWay way/*, User sender, User receiver*/) {
-        this.dateTime = LocalDateTime.now();
+    private LocalDateTime dateTime;
+
+    public Message(String content, MessageWay way) {
         this.content = content;
         this.way = way;
-        /*
-        this.sender = sender;
-        this.receiver = receiver;
-        */
+        this.dateTime = LocalDateTime.now();
+    }
+
+    public Message(String content, MessageWay way, LocalDateTime dateTime) {
+        this.content = content;
+        this.way = way;
+        this.dateTime = dateTime;
     }
 
     public LocalDateTime getDateTime() {
@@ -40,15 +39,6 @@ public class Message {
         return this.way == MessageWay.RECEIVED;
     }
 
-    /*
-    public User getSender() {
-        return sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-   */
     public String toString() {
         return "content : " + this.getContent() + "\ndate and time : " + this.getDateTime() + "\n" + (this.isSent() ? "sent" : "received");
     }

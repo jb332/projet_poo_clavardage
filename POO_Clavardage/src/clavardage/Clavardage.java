@@ -35,14 +35,15 @@ public class Clavardage {
         this.mainWindow.notifyMessageReception(message, sender);
     }
 
+    public void storeSentMessage(Message message, User receiver) {
+        this.db.storeMessage(message, receiver);
+    }
+
     public void storeNewUser(User user) {
         this.db.storeUser(user);
     }
 
-    public boolean sendMessage(String messageContent, String receiverLogin) {
-        Message message = new Message(messageContent, MessageWay.SENT);
-        User receiver = getUserFromLogin(receiverLogin);
-
+    public boolean sendMessage(Message message, User receiver) {
         try {
             this.net.sendMessage(message, receiver);
         } catch (Exception e) {
@@ -90,7 +91,7 @@ public class Clavardage {
         this.me = new User(login, "", "");
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         Clavardage chat = new Clavardage();
         /* Test Connexion UDP
         if(args.length != 0) {
@@ -98,8 +99,8 @@ public class Clavardage {
                 case "s":
 
                 case "send":
-                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.230"))) {
-
+                        if(chat.net.sendConnectionResquest("jb33", InetAddress.getByName("10.1.5.91"))) {
+                        	chat.net.sendMessage("je t'envoie un message", InetAddress.getByName("10.1.5.91"));
                         }
 
                     break;
@@ -111,17 +112,15 @@ public class Clavardage {
                     System.out.println("Bad argument usage");
             }
         }
-*/
+        */
 
-        /* Test envoi message */
+        /* Test envoi message
 
         if(args.length != 0) {
         	switch(args[0]) {
             case "s":
             case "send":
-                User dest = new User("jb32", "10.32.3.8", "");
-            	chat.net.sendMessage(new Message("     test     et   un  ett deux  et trois    ", MessageWay.SENT), dest );
-                chat.net.sendMessage(new Message("     Cest parti mon peeeeetiiiiit    ", MessageWay.SENT), dest );
+            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.32.1.233"));
             	break;
             case "r":
             case "receive":
@@ -133,8 +132,9 @@ public class Clavardage {
         	}
 
         }
-
-
+        */
+        User test = new User("oui");
+        System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
     }
 
 }
