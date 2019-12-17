@@ -49,7 +49,7 @@ public class DataBaseInterface {
             System.out.println(e);
         }
     }
-
+    /*
     public ArrayList<Message> getMessages(User user) {
         try {
             String query = "" +
@@ -77,7 +77,7 @@ public class DataBaseInterface {
             return messages;
         }
     }
-
+*/
     /*
     public void getUsers(ArrayList<User> connectedUsers) {
     }
