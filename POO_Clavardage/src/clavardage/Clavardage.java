@@ -119,7 +119,7 @@ public class Clavardage {
         	switch(args[0]) {
             case "s":
             case "send":
-                User dest = new User("jb32", "10.1.5.230", "");
+                User dest = new User("jb32", "10.32.3.8", "");
             	chat.net.sendMessage(new Message("     test     et   un  ett deux  et trois    ", MessageWay.SENT), dest );
                 chat.net.sendMessage(new Message("     Cest parti mon peeeeetiiiiit    ", MessageWay.SENT), dest );
             	break;
