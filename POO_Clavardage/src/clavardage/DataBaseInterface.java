@@ -1,5 +1,9 @@
 package clavardage;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import javax.imageio.plugins.jpeg.JPEGImageReadParam;
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
@@ -50,24 +54,30 @@ public class DataBaseInterface {
         storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Jackson"));
 
         //plan database shutdown when the user leaves the application
+        DataBaseInterface thisBis = this;
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                disconnectAndShutDown();
+                thisBis.disconnectAndShutDown();
             }
         });
     }
 
     public void storeMessage(Message message, User distantUser) {
-        String content = "'"+message.getContent()+"'";
-        String distantUserMacAddress = "'"+distantUser.getMacAddress()+"'";
-        String isSent = message.isSent() ? "true" : "false";
-        String date = "'"+message.getDateTime().getYear()+"-"+message.getDateTime().getMonthValue()+"-"+message.getDateTime().getDayOfMonth()+"'";
-        String time = "'"+message.getDateTime().getHour()+":"+message.getDateTime().getMinute()+":"+message.getDateTime().getSecond()+"'";
+        String content = message.getContent();
+        String distantUserMacAddress = distantUser.getMacAddress();
+        Boolean isSent = message.isSent();
+        Date date = Date.valueOf(message.getDateTime().toLocalDate());
+        Time time = Time.valueOf(message.getDateTime().toLocalTime());
 
-        String sqlRequest = "INSERT INTO messages VALUES ("+content+", "+distantUserMacAddress+", "+isSent+", "+date+", "+time+")";
         try {
-            this.connection.createStatement().execute(sqlRequest);
-            //System.out.println("Message stored correctly");
+            String sqlQuery = "INSERT INTO messages VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, content);
+            preparedStatement.setString(2, distantUserMacAddress);
+            preparedStatement.setBoolean(3, isSent);
+            preparedStatement.setDate(4, date);
+            preparedStatement.setTime(5, time);
+            preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Statement error : message could not be stored : ");
             System.out.println(e);

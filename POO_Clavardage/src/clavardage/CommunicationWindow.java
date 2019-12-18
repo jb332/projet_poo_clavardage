@@ -36,7 +36,7 @@ public class CommunicationWindow implements ActionListener {
         this.historyPane.removeAll();
 
         for(Message currentMessage : messages) {
-            MessageBubble currentMessageBubble = new MessageBubble(currentMessage);
+            JLabel currentMessageBubble = new JLabel(currentMessage.getContent());
             this.historyPane.add(currentMessageBubble);
         }
 
@@ -55,8 +55,8 @@ public class CommunicationWindow implements ActionListener {
         //pane for users
         this.usersPane = new JPanel(new GridLayout(0, 1));
 
-        ArrayList<UserButton> userButtons = this.chat.getUsers().generateUserButtons();
-        for(UserButton currentUserButton : userButtons) {
+        ArrayList<JButton> userButtons = this.chat.getUsers().generateUserButtons();
+        for(JButton currentUserButton : userButtons) {
             currentUserButton.addActionListener(this);
             this.usersPane.add(currentUserButton);
         }
@@ -117,14 +117,11 @@ public class CommunicationWindow implements ActionListener {
     }
 
     public void sendMessage(Message messageSent, User receiver) {
-        //send the message over the network
+        //send the message over the network and store it
         this.chat.sendMessage(messageSent, receiver);
 
-        //store the message in the database
-        this.chat.storeSentMessage(messageSent, receiver);
-
         //display the message in history
-        MessageBubble messageSentBubble = new MessageBubble(messageSent);
+        JLabel messageSentBubble = new JLabel(messageSent.getContent());
         this.historyPane.add(messageSentBubble);
         this.historyPane.revalidate();
         this.historyPane.repaint();
@@ -158,7 +155,7 @@ public class CommunicationWindow implements ActionListener {
 
     public void notifyMessageReception(Message messageReceived, User sender) {
         if(sender.equals(selectedUser)){
-            MessageBubble messageSentBubble = new MessageBubble(messageReceived);
+            JLabel messageSentBubble = new JLabel(messageReceived.getContent());
             this.historyPane.add(messageSentBubble);
             this.historyPane.revalidate();
             this.historyPane.repaint();
@@ -168,7 +165,7 @@ public class CommunicationWindow implements ActionListener {
     }
 
     public void addUser(User user) {
-        UserButton userButton = new UserButton(user);
+        JButton userButton = new JButton(user.getLogin());
         userButton.addActionListener(this);
         this.usersPane.add(userButton);
         this.usersPane.revalidate();

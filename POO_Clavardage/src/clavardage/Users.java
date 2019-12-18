@@ -1,5 +1,9 @@
 package clavardage;
 
+import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
+
+import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -53,10 +57,20 @@ public class Users {
         return logins;
     }
 
+    /*
     public ArrayList<UserButton> generateUserButtons() {
         ArrayList<UserButton> userButtons = new ArrayList<UserButton>();
         for(User currentUser : users) {
             userButtons.add(new UserButton(currentUser));
+        }
+        return userButtons;
+    }
+    */
+
+    public ArrayList<JButton> generateUserButtons() {
+        ArrayList<JButton> userButtons = new ArrayList<JButton>();
+        for(User currentUser : users) {
+            userButtons.add(new JButton(currentUser.getLogin()));
         }
         return userButtons;
     }
@@ -71,5 +85,18 @@ public class Users {
             stringOut += currentUser + "\n\n";
         }
         return stringOut;
+    }
+
+    public void shutdownSockets() {
+        for(User currentUser : this.users) {
+            try {
+                if(currentUser.socketExists()) {
+                    currentUser.getSocket().close();
+                }
+            } catch(IOException e) {
+                System.out.println("Failed to close socket :");
+                System.out.println(e);
+            }
+        }
     }
 }

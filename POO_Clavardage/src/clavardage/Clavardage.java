@@ -13,17 +13,33 @@ public class Clavardage {
     private User me;
     private Users connectedUsers;
 
-    public Clavardage() {
+    public Clavardage(Integer userNumber) {
         //connection phase
         String login = "Jake";
         //with connection answers from the other agents, we build a user list
         //if the login is accepted, we create this user with it
         this.me = new User(login);
+        /*
+        switch(userNumber) {
+            case 1:
+                this.me = new User("Utilisateur 1");
+            case 2:
+                this.me = new User("Utilisateur 2");
+        }
+        */
         this.connectedUsers = new Users();
 
         this.net = new NetworkManager(this);
         this.db = new DataBaseInterface(this);
         this.mainWindow = new CommunicationWindow(this);
+
+        //plan database shutdown when the user leaves the application
+        Clavardage thisBis = this;
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                thisBis.connectedUsers.shutdownSockets();
+            }
+        });
     }
 
     public boolean connectAndCheckLogin(String login) {
@@ -38,10 +54,6 @@ public class Clavardage {
     public void treatReceivedMessage(Message message, User sender) {
         this.db.storeMessage(message, sender);
         this.mainWindow.notifyMessageReception(message, sender);
-    }
-
-    public void storeSentMessage(Message message, User receiver) {
-        this.db.storeMessage(message, receiver);
     }
 
     public void addUser(User user) {
@@ -76,7 +88,10 @@ public class Clavardage {
     }
 
     public static void main(String[] args) {
-        Clavardage chat = new Clavardage();
+        /*
+        Integer userNumber = Integer.parseInt(args[0]);
+        */
+        new Clavardage(0/*userNumber*/);
         /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {
@@ -117,7 +132,9 @@ public class Clavardage {
 
         }
         */
+        /*
         User test = new User("oui");
         System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
+        */
     }
 }

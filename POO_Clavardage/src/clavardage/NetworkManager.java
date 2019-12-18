@@ -76,6 +76,7 @@ public class NetworkManager {
         }
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         oos.writeObject(message.getContent());
+        oos.close();
 
         /*
         //will be called when closing the application or after a thread number limit is reached
