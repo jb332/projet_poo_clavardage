@@ -11,11 +11,16 @@ public class Clavardage {
     public CommunicationWindow mainWindow;
 
     private User me;
-    //private ArrayList<User> connectedUsers;
-    private History connectedUsersHistory;
+    private Users connectedUsers;
 
     public Clavardage() {
-        this.connectedUsersHistory = new History();
+        //connection phase
+        String login = "Jake";
+        //with connection answers from the other agents, we build a user list
+        //if the login is accepted, we create this user with it
+        this.me = new User(login);
+        this.connectedUsers = new Users();
+
         this.net = new NetworkManager(this);
         this.db = new DataBaseInterface(this);
         this.mainWindow = new CommunicationWindow(this);
@@ -30,7 +35,7 @@ public class Clavardage {
     }
 
     //methode appelée par le NetworkManager
-    public void storeReceivedMessage(Message message, User sender) {
+    public void treatReceivedMessage(Message message, User sender) {
         this.db.storeMessage(message, sender);
         this.mainWindow.notifyMessageReception(message, sender);
     }
@@ -39,8 +44,9 @@ public class Clavardage {
         this.db.storeMessage(message, receiver);
     }
 
-    public void storeNewUser(User user) {
-        this.db.storeUser(user);
+    public void addUser(User user) {
+        this.connectedUsers.addUser(user);
+        this.mainWindow.addUser(user);
     }
 
     public boolean sendMessage(Message message, User receiver) {
@@ -49,42 +55,20 @@ public class Clavardage {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.mainWindow.notifyMessageSent(message, receiver);
         this.db.storeMessage(message, receiver);
         return false;
     }
 
-    public ArrayList<User> getUsers() {
-        return this.connectedUsersHistory.getUsers();
-    }
-
-    public User getUserFromLogin(String login) {
-        return this.connectedUsersHistory.getUserFromLogin(login);
+    public Users getUsers() {
+        return this.connectedUsers;
     }
 
     public ArrayList<Message> getMessages(User user) {
-        return this.connectedUsersHistory.getMessages(user);
-    }
-
-    public User getUserFromIP(String ipAddress) {
-        ArrayList<User> connectedUsers = this.connectedUsersHistory.getUsers();
-        Iterator i = connectedUsers.iterator();
-        User foundUser = null;
-        while (i.hasNext() && foundUser == null) {
-            User currentUser = (User)(i.next());
-            if(currentUser.getIpAddress().equals(ipAddress)) {
-                foundUser = currentUser;
-            }
-        }
-        return foundUser;
+        return this.db.getMessages(user);
     }
 
     public User getMe() {
         return this.me;
-    }
-
-    public History getConnectedUsersHistory() {
-        return this.connectedUsersHistory;
     }
 
     public void chooseLogin(String login) {
@@ -136,5 +120,4 @@ public class Clavardage {
         User test = new User("oui");
         System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
     }
-
 }

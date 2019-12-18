@@ -1,7 +1,7 @@
 package clavardage;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.lang.Runtime;
 
@@ -20,8 +20,34 @@ public class DataBaseInterface {
         //connect to the database and create one if
         connectToTheDataBaseAndCreateOneIfNecessary();
 
-        //test
-        this.storeMessage(new Message("salut !", MessageWay.SENT), new User("perlotte", "255.255.255.255", "ff:ff:ff:ff:ff:ff"));
+        //create messages for testing
+        try {
+            this.connection.createStatement().execute("DELETE FROM messages");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        LocalDateTime dateTime = LocalDateTime.of(2019, 12, 15, 3, 27, 35);
+
+        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("John"));
+        storeMessage(new Message("Salut John, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("John"));
+        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("John"));
+
+        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("James"));
+        storeMessage(new Message("Salut James, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("James"));
+        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("James"));
+
+        //ATTENTION AUX APOSTROPHES
+        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Jack"));
+        storeMessage(new Message("T es mauvais Jack.", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Jack"));
+
+        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Johnson"));
+        storeMessage(new Message("Salut Johnson, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Johnson"));
+        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Johnson"));
+
+        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Jackson"));
+        storeMessage(new Message("Salut Jackson, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Jackson"));
+        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Jackson"));
 
         //plan database shutdown when the user leaves the application
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -39,18 +65,18 @@ public class DataBaseInterface {
         String time = "'"+message.getDateTime().getHour()+":"+message.getDateTime().getMinute()+":"+message.getDateTime().getSecond()+"'";
 
         String sqlRequest = "INSERT INTO messages VALUES ("+content+", "+distantUserMacAddress+", "+isSent+", "+date+", "+time+")";
-        System.out.println(sqlRequest);
         try {
-            //System.out.println(sqlRequest);
             this.connection.createStatement().execute(sqlRequest);
-            System.out.println("Message stored correctly");
+            //System.out.println("Message stored correctly");
         } catch (SQLException e) {
             System.out.println("Statement error : message could not be stored : ");
             System.out.println(e);
         }
     }
-    /*
+
     public ArrayList<Message> getMessages(User user) {
+        ArrayList<Message> messages = new ArrayList<Message>();
+
         try {
             String query = "" +
                     "SELECT content, isSent, date, time " +
@@ -63,28 +89,18 @@ public class DataBaseInterface {
             while(resultSet.next()) {
                 String currentContent = resultSet.getString("content");
                 MessageWay currentMessageWay = resultSet.getBoolean("isSent") ? MessageWay.SENT : MessageWay.RECEIVED;
-                String date = resultSet.getDate("date").
-                LocalDateTime currentDateTime = LocalDateTime.of
-                //resultSet.getTime("time")
+                LocalDate currentDate = resultSet.getDate("date").toLocalDate();
+                LocalTime currentTime = resultSet.getTime("time").toLocalTime();
+                LocalDateTime currentDateTime = LocalDateTime.of(currentDate, currentTime);
+                messages.add(new Message(currentContent, currentMessageWay, currentDateTime));
             }
-
-            ArrayList<Message> messages = new ArrayList<Message>();
-            System.out.println("Successfully retrieved messages exchanged with " + user + " : ");
+            //System.out.println("Successfully retrieved messages exchanged with " + user + " : ");
         } catch (SQLException e) {
             System.out.println("Statement error : could not get messages exchanged with user " + user + " : ");
             System.out.println(e);
         } finally {
             return messages;
         }
-    }
-*/
-    /*
-    public void getUsers(ArrayList<User> connectedUsers) {
-    }
-    */
-
-    public void storeUser(User user) {
-
     }
 
     public void connectToTheDataBaseAndCreateOneIfNecessary() {
@@ -98,7 +114,7 @@ public class DataBaseInterface {
                 //connection to the local database
                 System.out.println("Trying to connect to the local database");
                 this.connection = DriverManager.getConnection("jdbc:derby:" + this.dataBaseName);
-                System.out.println("Connected established");
+                System.out.println("Connection established");
             } catch(SQLException noDataBaseFound) {
                 try {
                     //creation of and connection to the local database
@@ -108,17 +124,6 @@ public class DataBaseInterface {
 
                     //initialization statements (tables and data to start)
                     try {
-                        /*
-                        connection.createStatement().execute("" +
-                                "CREATE TABLE users (" +
-                                "   macAddress VARCHAR(17) NOT NULL CONSTRAINT usersPK PRIMARY KEY" +
-                                ")"
-                        );
-
-                        connection.createStatement().execute("" +
-                                "INSERT INTO users VALUES ('f8:28:19:73:f2:1f')"
-                        );
-                        */
                         this.connection.createStatement().execute("" +
                                 "CREATE TABLE messages (" +
                                 "   content VARCHAR(500)," +

@@ -13,4 +13,8 @@ public class MessageBubble extends JLabel {
     public Message getMessage() {
         return this.message;
     }
+
+    public String toString() {
+        return this.message.getContent();
+    }
 }

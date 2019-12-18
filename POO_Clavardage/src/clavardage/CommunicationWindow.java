@@ -33,15 +33,6 @@ public class CommunicationWindow implements ActionListener {
     private void loadMessages(User selectedUser) {
         ArrayList<Message> messages = this.chat.getMessages(selectedUser);
 
-        //TEST
-        Integer i = 0;
-        for(Message currentMessage : messages) {
-            System.out.println("Message" + i);
-            System.out.println(currentMessage);
-            i++;
-        }
-        //FIN TEST
-
         this.historyPane.removeAll();
 
         for(Message currentMessage : messages) {
@@ -62,13 +53,11 @@ public class CommunicationWindow implements ActionListener {
         }
 
         //pane for users
-        ArrayList<User> users = this.chat.getUsers();
         this.usersPane = new JPanel(new GridLayout(0, 1));
 
-        for(User currentUser : users) {
-            UserButton currentUserButton = new UserButton(currentUser);
+        ArrayList<UserButton> userButtons = this.chat.getUsers().generateUserButtons();
+        for(UserButton currentUserButton : userButtons) {
             currentUserButton.addActionListener(this);
-
             this.usersPane.add(currentUserButton);
         }
 
@@ -83,8 +72,8 @@ public class CommunicationWindow implements ActionListener {
         JScrollPane usersScrollPane = new JScrollPane(usersCenterPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         //pane for messages history
-        this.historyPane = new JPanel();
-        this.selectedUser = users.get(0);
+        this.historyPane = new JPanel(new GridLayout(0, 1));
+        this.selectedUser = this.chat.getUsers().getArbitraryUser();
         loadMessages(selectedUser);
 
 
@@ -118,9 +107,9 @@ public class CommunicationWindow implements ActionListener {
 
         //window
         this.frame = new JFrame("Tu veux-tu clavarder avec moi ?");
-        this.frame.setSize(300,800);
+        this.frame.setSize(800,500);
 
-        this.frame.setBounds(100, 100, 450, 300);
+        //this.frame.setBounds(100, 100, 450, 300);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.getContentPane().add(mainPane, BorderLayout.CENTER);
         this.frame.pack();
@@ -148,10 +137,13 @@ public class CommunicationWindow implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         String buttonName = event.getActionCommand();
         if(buttonName.equals(">")) {
-            Message messageSent = new Message(this.sendTextZone.getText(), MessageWay.SENT);
-            sendMessage(messageSent, this.selectedUser);
+            String content = this.sendTextZone.getText();
+            if(!content.equals("")) {
+                Message messageSent = new Message(content, MessageWay.SENT);
+                sendMessage(messageSent, this.selectedUser);
+            }
         } else {
-            User selectedUser = this.chat.getUserFromLogin(buttonName);
+            User selectedUser = this.chat.getUsers().getUserFromLogin(buttonName);
             loadMessages(selectedUser);
         }
     }
@@ -160,19 +152,26 @@ public class CommunicationWindow implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 initializeGUI();
-                initializeGUI();
             }
         });
     }
 
-    public void notifyMessageReception(Message message, User sender) {
-        // si l'utilisateur dont les messages sont actuellement affichés est l'émetteur du message passé en argument
-        // alors on affiche ce message (on actualise la liste des messages)
-        // sinon on peut afficher une notification sur le bouton correspondant à l'utilisateur émetteur
+    public void notifyMessageReception(Message messageReceived, User sender) {
+        if(sender.equals(selectedUser)){
+            MessageBubble messageSentBubble = new MessageBubble(messageReceived);
+            this.historyPane.add(messageSentBubble);
+            this.historyPane.revalidate();
+            this.historyPane.repaint();
+        } else {
+            //display a notification on the sender's JButton
+        }
     }
 
-    public void notifyMessageSent(Message message, User receiver) {
-        // TODO Auto-generated method stub
-
+    public void addUser(User user) {
+        UserButton userButton = new UserButton(user);
+        userButton.addActionListener(this);
+        this.usersPane.add(userButton);
+        this.usersPane.revalidate();
+        this.usersPane.repaint();
     }
 }

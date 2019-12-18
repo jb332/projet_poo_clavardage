@@ -2,6 +2,7 @@ package clavardage;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class NetworkManager {
@@ -15,21 +16,20 @@ public class NetworkManager {
     public NetworkManager(Clavardage chat) {
         this.chat = chat;
         //create and launch a thread to answer connection requests
-        new ConnectionRequestListeningThread(chat);
+        new ConnectionRequestListening(chat);
         //create and launch a thread to store incoming messages
         new MessageReceiving(chat);
     }
 
-    public void sendMessage(Message message) {
-    }
-
     public boolean connectAndCheckLogin(String login) {
-        return false;
+        try {
+            return sendConnectionResquest(login, InetAddress.getByName("255.255.255.255"));
+        } catch(Exception e) {
+            System.out.println("Could not send connection request : ");
+            System.out.println(e);
+            return false;
+        }
     }
-
-
-
-
 
     public boolean sendConnectionResquest(String login, InetAddress addbroadcast) throws Exception {
         System.out.println("in sendConnectionRequest method");
@@ -60,13 +60,28 @@ public class NetworkManager {
 
     }
 
-    public void sendMessage(Message message, User receiver) throws Exception{
-        InetAddress destAddr = InetAddress.getByName(receiver.getIpAddress());
-        Socket socket = new Socket(destAddr, port_message);
+    public void sendMessage(Message message, User receiver) throws Exception {
+        //check if connection already exists
+        Socket socket;
+        if(receiver.socketExists()) {
+            //a connection already exists with this user so we just use the saved socket
+            socket = receiver.getSocket();
+        } else {
+            //it is the first time a message is exchanged with this user so we create a socket and we save it
+            InetAddress destAddr = InetAddress.getByName(receiver.getIpAddress());
+            socket = new Socket(destAddr, port_message);
+            receiver.setSocket(socket);
+            //we create a thread to listen on this socket because the receiver will respond with this socket
+            new MessageReceivingThread(socket, this.chat);
+        }
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         oos.writeObject(message.getContent());
+
+        /*
+        //will be called when closing the application or after a thread number limit is reached
         oos.close();
         socket.close();
+        */
     }
 
     /*

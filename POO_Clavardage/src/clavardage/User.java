@@ -2,12 +2,15 @@ package clavardage;
 
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-public class User {    private String login;
+public class User {
+    private String login;
     private String macAddress;
     private String ipAddress;
+    private Socket socket; //null if no communication established with the user
 
     private String bytesToHex(byte[] hashInBytes) {
 
@@ -38,6 +41,7 @@ public class User {    private String login;
 
     }
 
+    //used to create the user who uses this machine
     public User(String login) {
         this.login = login;
         try {
@@ -48,12 +52,19 @@ public class User {    private String login;
         } catch(Exception e) {
             System.out.println("error while trying to get ip or mac address");
         }
+        this.socket = null;
     }
 
+    //used to create the users this machine is going to communicate with
     public User(String login, String ipAddress, String macAddress) {
         this.login = login;
         this.ipAddress = ipAddress;
         this.macAddress = macAddress;
+        this.socket = null;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 
     public String getLogin() {
@@ -66,6 +77,14 @@ public class User {    private String login;
 
     public String getMacAddress() {
         return this.macAddress;
+    }
+
+    public boolean socketExists() {
+        return this.socket != null;
+    }
+
+    public Socket getSocket() {
+        return this.socket;
     }
 
     public String toString() {
