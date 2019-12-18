@@ -13,33 +13,17 @@ public class Clavardage {
     private User me;
     private Users connectedUsers;
 
-    public Clavardage(Integer userNumber) {
+    public Clavardage() {
         //connection phase
         String login = "Jake";
         //with connection answers from the other agents, we build a user list
         //if the login is accepted, we create this user with it
         this.me = new User(login);
-        /*
-        switch(userNumber) {
-            case 1:
-                this.me = new User("Utilisateur 1");
-            case 2:
-                this.me = new User("Utilisateur 2");
-        }
-        */
         this.connectedUsers = new Users();
 
         this.net = new NetworkManager(this);
         this.db = new DataBaseInterface(this);
         this.mainWindow = new CommunicationWindow(this);
-
-        //plan database shutdown when the user leaves the application
-        Clavardage thisBis = this;
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                thisBis.connectedUsers.shutdownSockets();
-            }
-        });
     }
 
     public boolean connectAndCheckLogin(String login) {
@@ -54,6 +38,10 @@ public class Clavardage {
     public void treatReceivedMessage(Message message, User sender) {
         this.db.storeMessage(message, sender);
         this.mainWindow.notifyMessageReception(message, sender);
+    }
+
+    public void storeSentMessage(Message message, User receiver) {
+        this.db.storeMessage(message, receiver);
     }
 
     public void addUser(User user) {
@@ -87,11 +75,8 @@ public class Clavardage {
         this.me = new User(login, "", "");
     }
 
-    public static void main(String[] args) {
-        /*
-        Integer userNumber = Integer.parseInt(args[0]);
-        */
-        new Clavardage(0/*userNumber*/);
+    public static void main(String[] args) throws Exception{
+        Clavardage chat = new Clavardage();
         /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {
@@ -113,28 +98,30 @@ public class Clavardage {
         }
         */
 
-        /* Test envoi message
+      /*   Test envoi message */
 
         if(args.length != 0) {
-        	switch(args[0]) {
-            case "s":
-            case "send":
-            	chat.net.sendMessage("hellooo", InetAddress.getByName("10.32.1.233"));
-            	break;
-            case "r":
-            case "receive":
-            	chat.chooseLogin("jb32");
-                break;
-            default:
-                System.out.println("Bad argument usage");
+            switch(args[0]) {
+                case "s":
+                case "send":
+                    User dest = new User("jb32", "10.1.5.149", "");
+                    chat.net.sendMessage(new Message("     envoi1   ", MessageWay.SENT), dest );
+                    chat.net.sendMessage(new Message("   envoi2 ", MessageWay.SENT), dest );
+                    break;
+                case "r":
+                case "receive":
+                    chat.chooseLogin("jb32");
+                    break;
+                default:
+                    System.out.println("Bad argument usage");
 
         	}
 
         }
-        */
-        /*
-        User test = new User("oui");
+
+        /*User test = new User("oui");
         System.out.println(test.getIpAddress() + "   " +test.getMacAddress());
-        */
+
+         */
     }
 }
