@@ -15,19 +15,26 @@ public class Clavardage {
 
     public Clavardage(Integer userNumber) {
         //connection phase
-        String login = "Jake";
+        //String login = "Jake";
         //with connection answers from the other agents, we build a user list
         //if the login is accepted, we create this user with it
-        this.me = new User(login);
-        /*
+        //this.me = new User(login);
+
+        this.connectedUsers = new Users();
+
         switch(userNumber) {
             case 1:
-                this.me = new User("Utilisateur 1");
+                this.me = new User("J-B");
+                this.connectedUsers.addUser(new User("Rémy", "10.1.5.148", "64:00:6a:59:60:d7"));
+                break;
             case 2:
-                this.me = new User("Utilisateur 2");
+                this.me = new User("Rémy");
+                this.connectedUsers.addUser(new User("J-B", "10.32.3.8", "f8:28:19:73:f2:1f"));
+                break;
+            default:
+                this.me = new User("Moi");
+                break;
         }
-        */
-        this.connectedUsers = new Users();
 
         this.net = new NetworkManager(this);
         this.db = new DataBaseInterface(this);
@@ -88,10 +95,13 @@ public class Clavardage {
     }
 
     public static void main(String[] args) {
-        /*
-        Integer userNumber = Integer.parseInt(args[0]);
-        */
-        new Clavardage(0/*userNumber*/);
+        Integer userNumber;
+        if(args.length != 0) {
+            userNumber = Integer.parseInt(args[0]);
+        } else {
+            userNumber = 0;
+        }
+        new Clavardage(userNumber);
         /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {

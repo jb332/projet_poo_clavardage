@@ -31,6 +31,7 @@ public class DataBaseInterface {
             e.printStackTrace();
         }
 
+        /*
         LocalDateTime dateTime = LocalDateTime.of(2019, 12, 15, 3, 27, 35);
 
         storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("John"));
@@ -52,6 +53,7 @@ public class DataBaseInterface {
         storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Jackson"));
         storeMessage(new Message("Salut Jackson, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Jackson"));
         storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Jackson"));
+        */
 
         //plan database shutdown when the user leaves the application
         DataBaseInterface thisBis = this;

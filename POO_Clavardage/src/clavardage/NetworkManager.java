@@ -4,7 +4,6 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
-
 public class NetworkManager {
 
     private Clavardage chat;
@@ -77,12 +76,6 @@ public class NetworkManager {
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         oos.writeObject(message.getContent());
         oos.close();
-
-        /*
-        //will be called when closing the application or after a thread number limit is reached
-        oos.close();
-        socket.close();
-        */
     }
 
     /*
