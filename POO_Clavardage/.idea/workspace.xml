@@ -62,18 +62,34 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="derby&#10;derby.embedded" />
+    <property name="DatabaseDriversLRU" value="derby.embedded&#10;derby" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/derby.jar" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.POO_Clavardage 1">
+    <configuration name="POO_Clavardage 1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
+      <module name="POO_Clavardage" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="POO_Clavardage 2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
+      <module name="POO_Clavardage" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="POO_Clavardage" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
       <module name="POO_Clavardage" />
@@ -81,18 +97,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.POO_Clavardage" />
+      <item itemvalue="Application.POO_Clavardage 1" />
+      <item itemvalue="Application.POO_Clavardage 2" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
       <list>
         <serviceView>
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -126,6 +142,19 @@
       <workItem from="1576229918736" duration="6464000" />
       <workItem from="1576356677029" duration="377000" />
       <workItem from="1576369811139" duration="8790000" />
+      <workItem from="1576379752624" duration="2045000" />
+      <workItem from="1576411334415" duration="300000" />
+      <workItem from="1576411655897" duration="720000" />
+      <workItem from="1576441001782" duration="1200000" />
+      <workItem from="1576503885214" duration="8689000" />
+      <workItem from="1576585632875" duration="6669000" />
+      <workItem from="1576593455396" duration="11232000" />
+      <workItem from="1576621730912" duration="7670000" />
+      <workItem from="1576657923037" duration="9366000" />
+      <workItem from="1576700472314" duration="1064000" />
+      <workItem from="1577117936143" duration="598000" />
+      <workItem from="1577147224299" duration="13312000" />
+      <workItem from="1578310267490" duration="508000" />
     </task>
     <servers />
   </component>
@@ -133,54 +162,74 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="447" y="204" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576378399325">
+    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577199115569">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="447" y="204" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1576378399325" />
+    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1577199115569" />
     <state x="768" y="265" width="374" height="584" key="#com.intellij.ide.util.MemberChooser" timestamp="1575632733114">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="768" y="265" width="374" height="584" key="#com.intellij.ide.util.MemberChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1575632733114" />
-    <state x="1068" y="338" width="525" height="436" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1576099642331">
+    <state x="1068" y="338" width="525" height="436" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1576411706216">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="1068" y="338" width="525" height="436" key="#com.intellij.ide.util.TreeClassChooserDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1576099642331" />
+    <state x="1068" y="338" width="525" height="436" key="#com.intellij.ide.util.TreeClassChooserDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1576411706216" />
     <state x="1123" y="280" width="624" height="554" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576099798496">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="1123" y="280" width="624" height="554" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1576099798496" />
+    <state x="717" y="439" width="486" height="248" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1576626752050">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="717" y="439" width="486" height="248" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.27.1920.1053@0.27.1920.1053" timestamp="1576626752050" />
     <state x="693" y="302" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575628039695">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="693" y="302" width="524" height="510" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1575628039695" />
-    <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1576378395218">
+    <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1576522649279">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1576378395218" />
-    <state width="936" height="129" key="GridCell.Tab.0.bottom" timestamp="1576378605927">
+    <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1576522649279" />
+    <state width="1874" height="142" key="GridCell.Tab.0.bottom" timestamp="1577202979051">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="936" height="129" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1576378605927" />
-    <state width="936" height="129" key="GridCell.Tab.0.center" timestamp="1576378605927">
+    <state width="1874" height="142" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979051" />
+    <state width="1874" height="142" key="GridCell.Tab.0.center" timestamp="1577202979048">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="936" height="129" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1576378605927" />
-    <state width="936" height="129" key="GridCell.Tab.0.left" timestamp="1576378605927">
+    <state width="1874" height="142" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979048" />
+    <state width="1874" height="142" key="GridCell.Tab.0.left" timestamp="1577202979047">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="936" height="129" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1576378605927" />
-    <state width="936" height="129" key="GridCell.Tab.0.right" timestamp="1576378605927">
+    <state width="1874" height="142" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979047" />
+    <state width="1874" height="142" key="GridCell.Tab.0.right" timestamp="1577202979050">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="936" height="129" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576378605927" />
+    <state width="1874" height="142" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979050" />
+    <state width="1874" height="340" key="GridCell.Tab.1.bottom" timestamp="1576629605782">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1576629605782" />
+    <state width="1874" height="340" key="GridCell.Tab.1.center" timestamp="1576629605782">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1576629605782" />
+    <state width="1874" height="340" key="GridCell.Tab.1.left" timestamp="1576629605782">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1576629605782" />
+    <state width="1874" height="340" key="GridCell.Tab.1.right" timestamp="1576629605782">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576629605782" />
     <state width="257" height="520" key="HiddenNamespacesPopup" timestamp="1576243956896">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="257" height="520" key="HiddenNamespacesPopup/0.27.1920.1053@0.27.1920.1053" timestamp="1576243956896" />
-    <state x="50" y="172" width="1024" height="852" key="SettingsEditor" timestamp="1576372299292">
+    <state x="50" y="172" width="1550" height="830" key="SettingsEditor" timestamp="1576664047527">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="50" y="172" width="1024" height="852" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1576372299292" />
+    <state x="50" y="172" width="1550" height="830" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1576664047527" />
     <state x="861" y="450" width="363" height="218" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1576375910686">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>

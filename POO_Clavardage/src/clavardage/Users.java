@@ -1,5 +1,7 @@
 package clavardage;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +13,13 @@ public class Users {
     public Users() {
         users = new ArrayList<User>();
         //create users for testing
+        /*
         users.add(new User("John", "192.168.1.1", "11:11:11:11:11:11"));
         users.add(new User("James", "192.168.1.2", "11:11:11:11:11:12"));
         users.add(new User("Jack", "192.168.1.3", "11:11:11:11:11:13"));
         users.add(new User("Johnson", "192.168.1.4", "11:11:11:11:11:14"));
         users.add(new User("Jackson", "192.168.1.5", "11:11:11:11:11:15"));
+        */
     }
 
     public void addUser(User user) {
@@ -35,7 +39,7 @@ public class Users {
         return foundUser;
     }
 
-    public User getUserFromIP(String ipAddress) {
+    public User getUserFromIP(String ipAddress) throws IllegalArgumentException {
         Iterator i = this.users.iterator();
         User foundUser = null;
         while (i.hasNext() && foundUser == null) {
@@ -44,7 +48,11 @@ public class Users {
                 foundUser = currentUser;
             }
         }
-        return foundUser;
+        if(foundUser == null) {
+            throw new IllegalArgumentException("Error : no user having the IP address \"" + ipAddress + "\" was found.");
+        } else {
+            return foundUser;
+        }
     }
 
     public ArrayList<String> getLogins() {

@@ -107,9 +107,10 @@ public class CommunicationWindow implements ActionListener {
 
         //window
         this.frame = new JFrame("Tu veux-tu clavarder avec moi ?");
-        this.frame.setSize(800,500);
+        this.frame.setPreferredSize(new Dimension(600,350));
 
         //this.frame.setBounds(100, 100, 450, 300);
+        this.frame.getRootPane().setDefaultButton(sendButton);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.getContentPane().add(mainPane, BorderLayout.CENTER);
         this.frame.pack();

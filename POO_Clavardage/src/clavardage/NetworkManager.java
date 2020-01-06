@@ -61,20 +61,27 @@ public class NetworkManager {
 
     public void sendMessage(Message message, User receiver) throws Exception {
         //check if connection already exists
+        System.out.println("Currently trying to send a message to " + InetAddress.getByName(receiver.getIpAddress()));
+
         Socket socket;
         if(receiver.socketExists()) {
             //a connection already exists with this user so we just use the saved socket
             socket = receiver.getSocket();
+
+            System.out.println("A socket already exists : " + socket);
         } else {
             //it is the first time a message is exchanged with this user so we create a socket and we save it
             InetAddress destAddr = InetAddress.getByName(receiver.getIpAddress());
             socket = new Socket(destAddr, port_message);
             receiver.setSocket(socket);
+
+            System.out.println("Socket created : " + socket);
+
             //we create a thread to listen on this socket because the receiver will respond with this socket
             new MessageReceivingThread(socket, this.chat);
         }
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.writeObject(message.getContent());
+        DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
+        oos.writeChars(message.getContent());
         oos.close();
     }
 

@@ -20,7 +20,9 @@ public class MessageReceiving extends Thread {
             while(true) {
                 try {
                     link = servSocket.accept();
-                    new MessageReceivingThread(link, chat);
+                    System.out.println(link.getPort());
+                    System.out.println(link.getLocalPort());
+                    //new MessageReceivingThread(link, chat);
                 } catch (Exception e) {
                     System.out.println("Error : " + e);
                 }

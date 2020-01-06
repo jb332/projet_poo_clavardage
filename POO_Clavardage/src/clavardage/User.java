@@ -80,7 +80,7 @@ public class User {
     }
 
     public boolean socketExists() {
-        return this.socket != null;
+        return (this.socket != null);
     }
 
     public Socket getSocket() {

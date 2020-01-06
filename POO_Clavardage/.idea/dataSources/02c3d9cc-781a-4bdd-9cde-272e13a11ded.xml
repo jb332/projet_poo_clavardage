@@ -22,13 +22,13 @@
       <Position>1</Position>
       <DataType>VARCHAR(500)|12s</DataType>
     </column>
-    <column id="15" parent="13" name="SENDER">
+    <column id="15" parent="13" name="DISTANTUSERMACADDRESS">
       <Position>2</Position>
       <DataType>VARCHAR(17)|12s</DataType>
     </column>
-    <column id="16" parent="13" name="RECEIVER">
+    <column id="16" parent="13" name="ISSENT">
       <Position>3</Position>
-      <DataType>VARCHAR(17)|12s</DataType>
+      <DataType>BOOLEAN|16s</DataType>
     </column>
     <column id="17" parent="13" name="DATE">
       <Position>4</Position>
