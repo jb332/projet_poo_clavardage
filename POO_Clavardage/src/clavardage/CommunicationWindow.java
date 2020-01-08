@@ -40,7 +40,6 @@ public class CommunicationWindow implements ActionListener {
         for(Message currentMessage : messages) {
             JLabel currentMessageBubble = new JLabel(currentMessage.getContent());
             currentMessageBubble.setVerticalAlignment(JLabel.TOP);
-            //currentMessageBubble.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
 
             GridBagConstraints c = new GridBagConstraints();
             c.gridx = 0;
@@ -157,15 +156,12 @@ public class CommunicationWindow implements ActionListener {
         this.frame.setVisible(true);
     }
 
-    public void sendMessage(Message messageSent, User receiver) {
+    public void sendMessage(Message sentMessage, User receiver) {
         //send the message over the network and store it
-        this.chat.sendMessage(messageSent, receiver);
+        this.chat.sendMessage(sentMessage, receiver);
 
         //display the message in history
-        JLabel messageSentBubble = new JLabel(messageSent.getContent());
-        this.historyPane.add(messageSentBubble);
-        this.historyPane.revalidate();
-        this.historyPane.repaint();
+        this.addMessage(sentMessage);
 
         //remove the text in the sendTextZone
         this.sendTextZone.setText("");
@@ -194,12 +190,38 @@ public class CommunicationWindow implements ActionListener {
         });
     }
 
-    public void notifyMessageReception(Message messageReceived, User sender) {
-        if(sender.equals(selectedUser)){
-            JLabel messageSentBubble = new JLabel(messageReceived.getContent());
-            this.historyPane.add(messageSentBubble);
-            this.historyPane.revalidate();
-            this.historyPane.repaint();
+    public void addMessage(Message message) {
+        Integer lastMessageBubbleIndex = this.historyPane.getComponents().length-1;
+        JLabel lastMessageBubble = (JLabel)(this.historyPane.getComponent(lastMessageBubbleIndex));
+
+        GridBagLayout layout = (GridBagLayout)(this.historyPane.getLayout());
+        GridBagConstraints lastMessageBubbleConstraints = layout.getConstraints(lastMessageBubble);
+        lastMessageBubbleConstraints.weighty = 0;
+        layout.setConstraints(lastMessageBubble, lastMessageBubbleConstraints);
+
+        JLabel messageBubble = new JLabel(message.getContent());
+        messageBubble.setVerticalAlignment(JLabel.TOP);
+
+        GridBagConstraints messageBubbleConstraints = new GridBagConstraints();
+        messageBubbleConstraints.gridx = 0;
+        messageBubbleConstraints.gridy = GridBagConstraints.RELATIVE;
+        messageBubbleConstraints.weightx = 1;
+        messageBubbleConstraints.fill = GridBagConstraints.VERTICAL;
+        if(message.isSent()){
+            messageBubbleConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        } else {
+            messageBubbleConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        }
+        messageBubbleConstraints.weighty = 1;
+
+        this.historyPane.add(messageBubble, messageBubbleConstraints);
+        this.historyPane.revalidate();
+        this.historyPane.repaint();
+    }
+
+    public void notifyMessageReception(Message receivedMessage, User sender) {
+        if(sender.equals(this.selectedUser)){
+            this.addMessage(receivedMessage);
         } else {
             //display a notification on the sender's JButton
         }
