@@ -67,25 +67,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/derby.jar" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Application.POO_Clavardage 1">
-    <configuration name="POO_Clavardage 1" type="Application" factoryName="Application">
+  <component name="RunManager">
+    <configuration name="POO_Clavardage" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
       <module name="POO_Clavardage" />
-      <option name="PROGRAM_PARAMETERS" value="1" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="POO_Clavardage 2" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
-      <module name="POO_Clavardage" />
-      <option name="PROGRAM_PARAMETERS" value="2" />
+      <option name="PROGRAM_PARAMETERS" value="1 193.168.43.7" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -93,15 +85,11 @@
     <configuration name="POO_Clavardage" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="clavardage.Clavardage" />
       <module name="POO_Clavardage" />
+      <option name="PROGRAM_PARAMETERS" value="1 192.168.43.193" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.POO_Clavardage" />
-      <item itemvalue="Application.POO_Clavardage 1" />
-      <item itemvalue="Application.POO_Clavardage 2" />
-    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -154,7 +142,11 @@
       <workItem from="1576700472314" duration="1064000" />
       <workItem from="1577117936143" duration="598000" />
       <workItem from="1577147224299" duration="13312000" />
-      <workItem from="1578310267490" duration="508000" />
+      <workItem from="1578310267490" duration="9064000" />
+      <workItem from="1578405133399" duration="4809000" />
+      <workItem from="1578413952032" duration="2761000" />
+      <workItem from="1578416738981" duration="9831000" />
+      <workItem from="1578472810711" duration="2735000" />
     </task>
     <servers />
   </component>
@@ -162,10 +154,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577199115569">
+    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578414856337">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1577199115569" />
+    <state x="402" y="192" width="1084" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1578414856337" />
     <state x="768" y="265" width="374" height="584" key="#com.intellij.ide.util.MemberChooser" timestamp="1575632733114">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -190,22 +182,22 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1576522649279" />
-    <state width="1874" height="142" key="GridCell.Tab.0.bottom" timestamp="1577202979051">
+    <state width="914" height="142" key="GridCell.Tab.0.bottom" timestamp="1578475554446">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1874" height="142" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979051" />
-    <state width="1874" height="142" key="GridCell.Tab.0.center" timestamp="1577202979048">
+    <state width="914" height="142" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1578475554446" />
+    <state width="914" height="142" key="GridCell.Tab.0.center" timestamp="1578475554446">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1874" height="142" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979048" />
-    <state width="1874" height="142" key="GridCell.Tab.0.left" timestamp="1577202979047">
+    <state width="914" height="142" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1578475554446" />
+    <state width="914" height="142" key="GridCell.Tab.0.left" timestamp="1578475554446">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1874" height="142" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979047" />
-    <state width="1874" height="142" key="GridCell.Tab.0.right" timestamp="1577202979050">
+    <state width="914" height="142" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1578475554446" />
+    <state width="914" height="142" key="GridCell.Tab.0.right" timestamp="1578475554446">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1874" height="142" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1577202979050" />
+    <state width="914" height="142" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1578475554446" />
     <state width="1874" height="340" key="GridCell.Tab.1.bottom" timestamp="1576629605782">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -222,22 +214,26 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1874" height="340" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576629605782" />
-    <state width="257" height="520" key="HiddenNamespacesPopup" timestamp="1576243956896">
+    <state width="257" height="520" key="HiddenNamespacesPopup" timestamp="1578416695728">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="257" height="520" key="HiddenNamespacesPopup/0.27.1920.1053@0.27.1920.1053" timestamp="1576243956896" />
-    <state x="50" y="172" width="1550" height="830" key="SettingsEditor" timestamp="1576664047527">
+    <state width="257" height="520" key="HiddenNamespacesPopup/0.27.1920.1053@0.27.1920.1053" timestamp="1578416695728" />
+    <state x="50" y="172" width="1550" height="830" key="SettingsEditor" timestamp="1578414461169">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="50" y="172" width="1550" height="830" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1576664047527" />
+    <state x="50" y="172" width="1550" height="830" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1578414461169" />
     <state x="861" y="450" width="363" height="218" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1576375910686">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="861" y="450" width="363" height="218" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1920.1053@0.27.1920.1053" timestamp="1576375910686" />
-    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1576245169679">
+    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1578414885988">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1576245169679" />
+    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1578414885988" />
+    <state x="490" y="261" width="930" height="591" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1" timestamp="1578426141745">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="490" y="261" width="930" height="591" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1/0.27.1920.1053@0.27.1920.1053" timestamp="1578426141745" />
     <state x="626" y="359" key="com.intellij.ide.util.TipDialog" timestamp="1575591781455">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
