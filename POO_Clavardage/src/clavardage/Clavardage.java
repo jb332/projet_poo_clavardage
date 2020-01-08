@@ -13,7 +13,7 @@ public class Clavardage {
     private User me;
     private Users connectedUsers;
 
-    public Clavardage(Integer userNumber) {
+    public Clavardage(Integer userNumber, String distantIP) {
         //connection phase
         //String login = "Jake";
         //with connection answers from the other agents, we build a user list
@@ -25,11 +25,11 @@ public class Clavardage {
         switch(userNumber) {
             case 1:
                 this.me = new User("J-B");
-                this.connectedUsers.addUser(new User("Rémy", "192.168.1.14", "64:00:6a:59:60:d7"));
+                this.connectedUsers.addUser(new User("Rémy", distantIP, "64:00:6a:59:60:d7"));
                 break;
             case 2:
                 this.me = new User("Rémy");
-                this.connectedUsers.addUser(new User("J-B", "192.168.1.11", "f8:28:19:73:f2:1f"));
+                this.connectedUsers.addUser(new User("J-B", distantIP, "f8:28:19:73:f2:1f"));
                 break;
             default:
                 this.me = new User("Moi");
@@ -101,7 +101,15 @@ public class Clavardage {
         } else {
             userNumber = 0;
         }
-        new Clavardage(userNumber);
+
+        String distantIP;
+        if(args.length > 1) {
+            distantIP = args[1];
+        } else {
+            distantIP = "no_ip";
+        }
+
+        new Clavardage(userNumber, distantIP);
         /* Test Connexion UDP
         if(args.length != 0) {
             switch(args[0]) {

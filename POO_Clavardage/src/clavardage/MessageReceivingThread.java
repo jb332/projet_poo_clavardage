@@ -30,26 +30,30 @@ public class MessageReceivingThread extends Thread {
         }
 
         System.out.println("Sender : " + sender);
-        System.out.println("Sender socket : " + sender.getSocket());
+
         //if no connection had been established (which means this machine is the receiver not the sender) then set the user socket
         if(!sender.socketExists()) {
             sender.setSocket(link);
         }
 
-        while (true) {
-            try {
-                InputStream input = this.link.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                String line = reader.readLine();
+        System.out.println("Sender socket : " + sender.getSocket());
+        Socket socket = sender.getSocket();
+
+        try {
+            while (true) {
+                DataInputStream input = new DataInputStream(this.link.getInputStream());
+                //BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                //String line = reader.readLine();
+                String line = input.readUTF();
 
                 System.out.println("Message received : \"" + line + "\"");
 
                 Message receivedMessage = new Message(line, MessageWay.RECEIVED);
 
                 this.chat.treatReceivedMessage(receivedMessage, sender);
-            } catch (IOException e) {
-                System.out.println("Error : message could not be received : " + e);
             }
+        } catch (IOException e) {
+            System.out.println("Error : message could not be received : " + e);
         }
     }
 }

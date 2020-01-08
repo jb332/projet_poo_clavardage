@@ -81,8 +81,9 @@ public class NetworkManager {
             new MessageReceivingThread(socket, this.chat);
         }
         DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
-        oos.writeChars(message.getContent());
-        oos.close();
+        //oos.writeChars(message.getContent());
+        oos.writeUTF(message.getContent());
+        //oos.close();
     }
 
     /*

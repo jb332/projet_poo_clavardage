@@ -25,13 +25,13 @@ public class DataBaseInterface {
         connectToTheDataBaseAndCreateOneIfNecessary();
 
         //create messages for testing
+        /*
         try {
             this.connection.createStatement().execute("DELETE FROM messages");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        /*
         LocalDateTime dateTime = LocalDateTime.of(2019, 12, 15, 3, 27, 35);
 
         storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("John"));

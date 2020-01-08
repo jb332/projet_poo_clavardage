@@ -1,6 +1,8 @@
 package clavardage;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -37,7 +39,27 @@ public class CommunicationWindow implements ActionListener {
 
         for(Message currentMessage : messages) {
             JLabel currentMessageBubble = new JLabel(currentMessage.getContent());
-            this.historyPane.add(currentMessageBubble);
+            currentMessageBubble.setVerticalAlignment(JLabel.TOP);
+            //currentMessageBubble.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 0;
+            c.gridy = GridBagConstraints.RELATIVE;
+            c.weightx = 1;
+            c.fill = GridBagConstraints.VERTICAL;
+
+            if(currentMessage.isSent()) {
+                c.anchor = GridBagConstraints.FIRST_LINE_START;
+            } else {
+                c.anchor = GridBagConstraints.FIRST_LINE_END;
+            }
+
+            if(currentMessage.equals(messages.get(messages.size()-1))) {
+                c.weighty = 1;
+            } else {
+                c.weighty = 0;
+            }
+            this.historyPane.add(currentMessageBubble, c);
         }
 
         this.historyPane.revalidate();
@@ -72,13 +94,31 @@ public class CommunicationWindow implements ActionListener {
         JScrollPane usersScrollPane = new JScrollPane(usersCenterPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         //pane for messages history
-        this.historyPane = new JPanel(new GridLayout(0, 1));
+        this.historyPane = new JPanel(new /*GridLayout(0, 1)*/GridBagLayout());
+        this.historyPane.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+        this.historyPane.setPreferredSize(new Dimension(400, 200));
+
+        /*
+        JPanel messagesCenterPane = new JPanel(new GridBagLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.anchor = GridBagConstraints.NORTHWEST;
+        c2.weightx = 1;
+        c2.weighty = 0.2;
+        */
+
+        //messagesCenterPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        /*
+        messagesCenterPane.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        messagesCenterPane.add(this.historyPane, c2);
+        */
+
         this.selectedUser = this.chat.getUsers().getArbitraryUser();
         loadMessages(selectedUser);
 
 
         //scroll pane for messages history
-        JScrollPane historyScrollPane = new JScrollPane(this.historyPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane historyScrollPane = new JScrollPane(this.historyPane/*messagesCenterPane*/, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 
         //pane for send zone at the bottom right of the window

@@ -15,6 +15,7 @@ public class MessageReceiving extends Thread {
     public void run() {
         try {
             ServerSocket servSocket = new ServerSocket(NetworkManager.port_message);
+            System.out.println("Server socket created, listening on port : " + servSocket.getLocalPort());
 
             Socket link;
             while(true) {
@@ -22,7 +23,7 @@ public class MessageReceiving extends Thread {
                     link = servSocket.accept();
                     System.out.println(link.getPort());
                     System.out.println(link.getLocalPort());
-                    //new MessageReceivingThread(link, chat);
+                    new MessageReceivingThread(link, chat);
                 } catch (Exception e) {
                     System.out.println("Error : " + e);
                 }
