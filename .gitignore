@@ -1,1 +1,4 @@
 *.class
+clavarbase/
+bin/
+derby.log
