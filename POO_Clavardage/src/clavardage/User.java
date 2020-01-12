@@ -23,7 +23,6 @@ public class User {
     }
 
     private String[] getMacIP() throws Exception {
-
         Enumeration<NetworkInterface> lst_int =  NetworkInterface.getNetworkInterfaces();
         NetworkInterface adrActive = null;
         boolean trouve = false;
@@ -38,7 +37,6 @@ public class User {
 
         String infos[] = {this.bytesToHex(mac), (ip.get(1).getAddress().getHostAddress())};
         return infos;
-
     }
 
     //used to create the user who uses this machine

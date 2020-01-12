@@ -1,9 +1,10 @@
-package clavardage;
+package database;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import clavardage.Clavardage;
+import clavardage.Message;
+import clavardage.MessageWay;
+import clavardage.User;
 
-import javax.imageio.plugins.jpeg.JPEGImageReadParam;
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;

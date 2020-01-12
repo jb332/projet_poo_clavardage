@@ -1,4 +1,7 @@
-package clavardage;
+package network;
+
+import clavardage.Clavardage;
+import clavardage.User;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

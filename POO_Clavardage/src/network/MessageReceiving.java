@@ -1,4 +1,6 @@
-package clavardage;
+package network;
+
+import clavardage.Clavardage;
 
 import java.io.IOException;
 import java.net.*;

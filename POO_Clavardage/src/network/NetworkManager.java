@@ -1,8 +1,14 @@
-package clavardage;
+package network;
+
+import clavardage.Clavardage;
+import clavardage.Message;
+import clavardage.User;
+import network.ConnectionRequestListening;
+import network.MessageReceiving;
+import network.MessageReceivingThread;
 
 import java.net.*;
 import java.io.*;
-import java.util.ArrayList;
 
 public class NetworkManager {
 

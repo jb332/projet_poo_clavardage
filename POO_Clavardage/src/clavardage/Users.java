@@ -73,13 +73,19 @@ public class Users {
     }
     */
 
-    public ArrayList<JButton> generateUserButtons() {
+    public ArrayList<User> getList() {
+        return this.users;
+    }
+
+    /*
+    public ArrayList<JButton> generateUsersTabs() {
         ArrayList<JButton> userButtons = new ArrayList<JButton>();
         for(User currentUser : users) {
             userButtons.add(new JButton(currentUser.getLogin()));
         }
         return userButtons;
     }
+    */
 
     public User getArbitraryUser() {
         return this.users.get(0);

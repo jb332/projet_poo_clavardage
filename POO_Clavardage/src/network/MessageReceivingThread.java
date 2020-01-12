@@ -1,4 +1,9 @@
-package clavardage;
+package network;
+
+import clavardage.Clavardage;
+import clavardage.Message;
+import clavardage.MessageWay;
+import clavardage.User;
 
 import java.io.*;
 import java.net.InetAddress;

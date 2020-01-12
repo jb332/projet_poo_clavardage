@@ -1,9 +1,10 @@
 package clavardage;
 
-import java.io.ObjectOutputStream;
-import java.net.*;
+import database.DataBaseInterface;
+import gui.CommunicationWindow;
+import network.NetworkManager;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Clavardage {
     public NetworkManager net;
@@ -68,7 +69,7 @@ public class Clavardage {
         this.mainWindow.addUser(user);
     }
 
-    public boolean sendMessage(Message message, User receiver) {
+    public boolean sendAndStoreMessage(Message message, User receiver) {
         try {
             this.net.sendMessage(message, receiver);
         } catch (Exception e) {
