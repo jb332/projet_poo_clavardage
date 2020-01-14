@@ -38,12 +38,6 @@
         <item name="clavarbase" type="feb32156:DbDataSourceImpl" />
         <item name="APP: schema" type="12aa88c4:DerbyImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="clavarbase" type="feb32156:DbDataSourceImpl" />
-        <item name="APP: schema" type="12aa88c4:DerbyImplModel$Schema" />
-        <item name="MESSAGES: table" type="7a557cd6:DerbyImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -104,7 +98,32 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@28f97e59" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@5c3ece82" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@74d67f3" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:clavarbase" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@3c4ab484" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -156,7 +175,8 @@
       <workItem from="1578416738981" duration="9831000" />
       <workItem from="1578472810711" duration="7737000" />
       <workItem from="1578670500623" duration="8413000" />
-      <workItem from="1578750249109" duration="27366000" />
+      <workItem from="1578750249109" duration="28154000" />
+      <workItem from="1578917240378" duration="9619000" />
     </task>
     <servers />
   </component>
@@ -192,22 +212,22 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1576522649279" />
-    <state width="1209" height="142" key="GridCell.Tab.0.bottom" timestamp="1578787495551">
+    <state width="1874" height="142" key="GridCell.Tab.0.bottom" timestamp="1578948215357">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1209" height="142" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1578787495551" />
-    <state width="1209" height="142" key="GridCell.Tab.0.center" timestamp="1578787495551">
+    <state width="1874" height="142" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1578948215357" />
+    <state width="1874" height="142" key="GridCell.Tab.0.center" timestamp="1578948215356">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1209" height="142" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1578787495551" />
-    <state width="1209" height="142" key="GridCell.Tab.0.left" timestamp="1578787495551">
+    <state width="1874" height="142" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1578948215356" />
+    <state width="1874" height="142" key="GridCell.Tab.0.left" timestamp="1578948215355">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1209" height="142" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1578787495551" />
-    <state width="1209" height="142" key="GridCell.Tab.0.right" timestamp="1578787495551">
+    <state width="1874" height="142" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1578948215355" />
+    <state width="1874" height="142" key="GridCell.Tab.0.right" timestamp="1578948215356">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1209" height="142" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1578787495551" />
+    <state width="1874" height="142" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1578948215356" />
     <state width="1874" height="340" key="GridCell.Tab.1.bottom" timestamp="1576629605782">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -236,10 +256,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="861" y="450" width="363" height="218" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1920.1053@0.27.1920.1053" timestamp="1576375910686" />
-    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1578414885988">
+    <state x="852" y="216" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1578919164911">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="679" y="191" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1578414885988" />
+    <state x="852" y="216" width="552" height="731" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1578919164911" />
     <state x="490" y="261" width="930" height="591" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1" timestamp="1578426141745">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -256,10 +276,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="206" y="138" width="1347" height="824" key="new project wizard/0.27.1920.1053@0.27.1920.1053" timestamp="1575591997090" />
-    <state x="624" y="252" key="run.anything.popup" timestamp="1575500710563">
+    <state x="624" y="252" key="run.anything.popup" timestamp="1578925467614">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="624" y="252" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1575500710563" />
+    <state x="624" y="252" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1578925467614" />
     <state x="1103" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1578774582409">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>

@@ -65,6 +65,28 @@ public class DataBaseInterface {
         });
     }
 
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<User>();
+
+        try {
+            ResultSet resultSet = this.connection.createStatement().executeQuery("" +
+                    "SELECT macAddress, login " +
+                    "FROM users " +
+                    "ORDER BY login"
+            );
+            while(resultSet.next()) {
+                String macAddress = resultSet.getString("macAddress");
+                String login = resultSet.getString("login");
+                users.add(new User(login, macAddress));
+            }
+        } catch (SQLException e) {
+            System.out.println("Statement error : could not get users : ");
+            System.out.println(e);
+        } finally {
+            return users;
+        }
+    }
+
     public void storeMessage(Message message, User distantUser) {
         String content = message.getContent();
         String distantUserMacAddress = distantUser.getMacAddress();
@@ -139,16 +161,40 @@ public class DataBaseInterface {
                     try {
                         this.connection.createStatement().execute("" +
                                 "CREATE TABLE messages (" +
-                                "   content VARCHAR(500)," +
-                                "   distantUserMacAddress VARCHAR(17)," +
-                                "   isSent BOOLEAN," +
-                                "   date DATE," +
-                                "   time TIME" +
+                                "   content VARCHAR(500) NOT NULL," +
+                                "   distantUserMacAddress CHAR(17) NOT NULL," +
+                                "   isSent BOOLEAN NOT NULL," +
+                                "   date DATE NOT NULL," +
+                                "   time TIME NOT NULL," +
+                                "   PRIMARY KEY (distantUserMacAddress, isSent, date, time)" +
+                                ")"
+                        );
+                        this.connection.createStatement().execute( "" +
+                                "CREATE TABLE users (" +
+                                "   macAddress CHAR(17) NOT NULL," +
+                                "   login VARCHAR(50) NOT NULL," +
+                                "   PRIMARY KEY (macAddress)" +
                                 ")"
                         );
                     } catch (SQLException statementError) {
                         System.out.println("Fatal Error : Table creation statement error : ");
                         System.out.println(statementError);
+
+                        System.out.println("" +
+                                "CREATE TABLE messages (" +
+                                "   content VARCHAR(500) NOT NULL," +
+                                "   distantUserMacAddress CHAR(17) NOT NULL," +
+                                "   isSent BOOLEAN NOT NULL," +
+                                "   date DATE NOT NULL," +
+                                "   time TIME NOT NULL," +
+                                "   PRIMARY KEY (distantUserMacAddress, isSent, date, time)" +
+                                ");" +
+                                "CREATE TABLE users (" +
+                                "   macAddress CHAR(17) NOT NULL," +
+                                "   login VARCHAR(50) NOT NULL," +
+                                "   PRIMARY KEY (macAddress)" +
+                                ");");
+
                         System.exit(1);
                     }
                 } catch(SQLException dataBaseCreationError) {

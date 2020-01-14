@@ -15,7 +15,7 @@ public class UsersTabsPanel extends JPanel {
         this.actionListener = actionListener;
     }
 
-    private UserTab getUserTab(User user) {
+    public UserTab getUserTab(User user) {
         Component[] usersTabs = this.getComponents();
         UserTab foundUserTab = null;
 
@@ -25,26 +25,6 @@ public class UsersTabsPanel extends JPanel {
             }
         }
         return foundUserTab;
-    }
-
-    private void changeUserNameFontStyle(UserTab userTab, int fontStyle) {
-        userTab.setFont(new Font(userTab.getFont().getName(), fontStyle, userTab.getFont().getSize()));
-    }
-
-    public void addNotificationToUserTab(User user) {
-        changeUserNameFontStyle(this.getUserTab(user), Font.BOLD);
-    }
-
-    public void removeNotificationFromUserTab(User user) {
-        changeUserNameFontStyle(this.getUserTab(user), 0);
-    }
-
-    public void setUserTabToOnline(User user) {
-        this.getUserTab(user).setBackground(new Color(225,255,231));
-    }
-
-    public void setUserTabToOffline(User user) {
-        this.getUserTab(user).setBackground(Color.LIGHT_GRAY);
     }
 
     public void loadUsers(ArrayList<User> users) {

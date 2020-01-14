@@ -11,8 +11,8 @@ public class Clavardage {
     public DataBaseInterface db;
     public CommunicationWindow mainWindow;
 
+    private Users users;
     private User me;
-    private Users connectedUsers;
 
     public Clavardage(Integer userNumber, String distantIP) {
         //connection phase
@@ -21,16 +21,16 @@ public class Clavardage {
         //if the login is accepted, we create this user with it
         //this.me = new User(login);
 
-        this.connectedUsers = new Users();
+        this.users = new Users();
 
         switch(userNumber) {
             case 1:
                 this.me = new User("J-B");
-                this.connectedUsers.addUser(new User("Rémy", distantIP, "64:00:6a:59:60:d7"));
+                this.users.addUser(new User("Rémy", distantIP, "64:00:6a:59:60:d7"));
                 break;
             case 2:
                 this.me = new User("Rémy");
-                this.connectedUsers.addUser(new User("J-B", distantIP, "f8:28:19:73:f2:1f"));
+                this.users.addUser(new User("J-B", distantIP, "f8:28:19:73:f2:1f"));
                 break;
             default:
                 this.me = new User("Moi");
@@ -45,7 +45,7 @@ public class Clavardage {
         Clavardage thisBis = this;
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                thisBis.connectedUsers.shutdownSockets();
+                thisBis.users.shutdownSockets();
             }
         });
     }
@@ -65,7 +65,7 @@ public class Clavardage {
     }
 
     public void addUser(User user) {
-        this.connectedUsers.addUser(user);
+        this.users.addUser(user);
         this.mainWindow.addUser(user);
     }
 
@@ -80,7 +80,7 @@ public class Clavardage {
     }
 
     public Users getUsers() {
-        return this.connectedUsers;
+        return this.users;
     }
 
     public ArrayList<Message> getMessages(User user) {

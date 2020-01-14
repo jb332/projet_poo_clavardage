@@ -26,7 +26,7 @@ public class CommunicationWindow implements ActionListener {
     //changes the message displayed upon selecting another user
     private void changeUserAndUpdateMessages(User selectedUser) {
         this.selectedUser = selectedUser;
-        this.usersTabsPane.removeNotificationFromUserTab(selectedUser);
+        this.usersTabsPane.getUserTab(selectedUser).removeNotification();
 
         ArrayList<Message> messages = this.chat.getMessages(selectedUser);
         this.messageHistoryPane.updateMessagesBubbles(messages);
@@ -51,7 +51,7 @@ public class CommunicationWindow implements ActionListener {
 
         User selectedUser = this.chat.getUsers().getArbitraryUser();
         this.changeUserAndUpdateMessages(selectedUser);
-        this.usersTabsPane.setUserTabToOnline(selectedUser);
+        //this.usersTabsPane.getUserTab(selectedUser).setToOnline();
 
 
         //scroll pane for messages history
@@ -123,8 +123,12 @@ public class CommunicationWindow implements ActionListener {
         if(sender.equals(this.selectedUser)){
             this.messageHistoryPane.addMessageBubble(receivedMessage);
         } else {
-            this.usersTabsPane.addNotificationToUserTab(sender);
+            this.usersTabsPane.getUserTab(sender).addNotification();
         }
+    }
+
+    public void notifyUserDisconnection(User user) {
+
     }
 
     public void addUser(User user) {

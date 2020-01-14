@@ -13,13 +13,11 @@ public class User {
     private Socket socket; //null if no communication established with the user
 
     private String bytesToHex(byte[] hashInBytes) {
-
         StringBuilder sb = new StringBuilder();
         for (byte b : hashInBytes) {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
-
     }
 
     private String[] getMacIP() throws Exception {
@@ -61,6 +59,14 @@ public class User {
         this.socket = null;
     }
 
+    //used to create disconnected users
+    public User(String login, String macAddress) {
+        this.login = login;
+        this.ipAddress = null;
+        this.macAddress = macAddress;
+        this.socket = null;
+    }
+
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
@@ -87,5 +93,9 @@ public class User {
 
     public String toString() {
         return "login : " + this.login + "\nmac address : " + this.macAddress + "\nip address : " + this.ipAddress;
+    }
+
+    public boolean isConnected() {
+        return ipAddress != null;
     }
 }
