@@ -2,7 +2,6 @@ package database;
 
 import clavardage.Clavardage;
 import clavardage.Message;
-import clavardage.MessageWay;
 import clavardage.User;
 
 import java.sql.*;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.lang.Runtime;
 
 public class DataBaseInterface {
-
     private Clavardage chat;
     private Connection connection;
 
@@ -63,6 +61,43 @@ public class DataBaseInterface {
                 thisBis.disconnectAndShutDown();
             }
         });
+    }
+
+    public void addUser(User user) {
+        String macAddress = user.getMacAddress();
+        String login = user.getLogin();
+        System.out.println(macAddress);
+        System.out.println(macAddress.length());
+
+        try {
+            String sqlQuery = "INSERT INTO users VALUES (?, ?)";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, macAddress);
+            preparedStatement.setString(2, login);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("Statement error : message could not be stored : ");
+            System.out.println(e);
+        }
+    }
+
+    public void updateLogin(User user) {
+        String login = user.getLogin();
+        String macAddress = user.getMacAddress();
+
+        try {
+            String sqlQuery = "" +
+                    "UPDATE users " +
+                    "SET login = ? " +
+                    "WHERE macAddress = ?";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, macAddress);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("Statement error : user could not be updated : ");
+            System.out.println(e);
+        }
     }
 
     public ArrayList<User> getUsers() {
@@ -123,11 +158,11 @@ public class DataBaseInterface {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 String currentContent = resultSet.getString("content");
-                MessageWay currentMessageWay = resultSet.getBoolean("isSent") ? MessageWay.SENT : MessageWay.RECEIVED;
+                boolean currentWay = resultSet.getBoolean("isSent");
                 LocalDate currentDate = resultSet.getDate("date").toLocalDate();
                 LocalTime currentTime = resultSet.getTime("time").toLocalTime();
                 LocalDateTime currentDateTime = LocalDateTime.of(currentDate, currentTime);
-                messages.add(new Message(currentContent, currentMessageWay, currentDateTime));
+                messages.add(new Message(currentContent, currentWay, currentDateTime));
             }
             //System.out.println("Successfully retrieved messages exchanged with " + user + " : ");
         } catch (SQLException e) {
@@ -162,7 +197,7 @@ public class DataBaseInterface {
                         this.connection.createStatement().execute("" +
                                 "CREATE TABLE messages (" +
                                 "   content VARCHAR(500) NOT NULL," +
-                                "   distantUserMacAddress CHAR(17) NOT NULL," +
+                                "   distantUserMacAddress CHAR(12) NOT NULL," +
                                 "   isSent BOOLEAN NOT NULL," +
                                 "   date DATE NOT NULL," +
                                 "   time TIME NOT NULL," +
@@ -171,7 +206,7 @@ public class DataBaseInterface {
                         );
                         this.connection.createStatement().execute( "" +
                                 "CREATE TABLE users (" +
-                                "   macAddress CHAR(17) NOT NULL," +
+                                "   macAddress CHAR(12) NOT NULL," +
                                 "   login VARCHAR(50) NOT NULL," +
                                 "   PRIMARY KEY (macAddress)" +
                                 ")"
@@ -179,22 +214,6 @@ public class DataBaseInterface {
                     } catch (SQLException statementError) {
                         System.out.println("Fatal Error : Table creation statement error : ");
                         System.out.println(statementError);
-
-                        System.out.println("" +
-                                "CREATE TABLE messages (" +
-                                "   content VARCHAR(500) NOT NULL," +
-                                "   distantUserMacAddress CHAR(17) NOT NULL," +
-                                "   isSent BOOLEAN NOT NULL," +
-                                "   date DATE NOT NULL," +
-                                "   time TIME NOT NULL," +
-                                "   PRIMARY KEY (distantUserMacAddress, isSent, date, time)" +
-                                ");" +
-                                "CREATE TABLE users (" +
-                                "   macAddress CHAR(17) NOT NULL," +
-                                "   login VARCHAR(50) NOT NULL," +
-                                "   PRIMARY KEY (macAddress)" +
-                                ");");
-
                         System.exit(1);
                     }
                 } catch(SQLException dataBaseCreationError) {

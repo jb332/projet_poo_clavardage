@@ -9,6 +9,7 @@ public class UserTab extends JButton {
     public UserTab(User user) {
         super(user.getLogin());
         super.setVerticalAlignment(JButton.TOP);
+        super.setFont(new Font(super.getFont().getName(), super.getFont().getStyle(), 2*super.getFont().getSize()));
         this.setToOffline();
     }
 
@@ -30,5 +31,13 @@ public class UserTab extends JButton {
 
     public void setToOffline() {
         super.setBackground(Color.LIGHT_GRAY);
+    }
+
+    public void select() {
+        super.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
+
+    public void unSelect() {
+        super.setBorder(BorderFactory.createEmptyBorder());
     }
 }

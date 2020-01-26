@@ -7,16 +7,15 @@ import java.net.*;
 
 public class MessageReceiving extends Thread {
     private Clavardage chat;
-    private final Integer portNumber = 1024;
 
-    public MessageReceiving(Clavardage chat) {
+    protected MessageReceiving(Clavardage chat) {
         this.chat = chat;
         super.start();
     }
 
     public void run() {
         try {
-            ServerSocket servSocket = new ServerSocket(NetworkManager.port_message);
+            ServerSocket servSocket = new ServerSocket(NetworkManager.messagePort);
             System.out.println("Server socket created, listening on port : " + servSocket.getLocalPort());
 
             Socket link;

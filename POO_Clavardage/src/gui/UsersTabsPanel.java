@@ -20,7 +20,19 @@ public class UsersTabsPanel extends JPanel {
         UserTab foundUserTab = null;
 
         for(int i=0; i<usersTabs.length-1 && foundUserTab == null; i++) {
-            if(((UserTab)usersTabs[i]).getText() == user.getLogin()) {
+            if(((UserTab)usersTabs[i]).getText().equals(user.getLogin())) {
+                foundUserTab = (UserTab)usersTabs[i];
+            }
+        }
+        return foundUserTab;
+    }
+
+    public UserTab getUserTab(String login) {
+        Component[] usersTabs = this.getComponents();
+        UserTab foundUserTab = null;
+
+        for(int i=0; i<usersTabs.length-1 && foundUserTab == null; i++) {
+            if(((UserTab)usersTabs[i]).getText().equals(login)) {
                 foundUserTab = (UserTab)usersTabs[i];
             }
         }
@@ -36,9 +48,12 @@ public class UsersTabsPanel extends JPanel {
         usersTabsConstraints.weighty = 0;
         usersTabsConstraints.fill = GridBagConstraints.VERTICAL;
 
-        if(users != null) {
+        if(users.size() > 0) {
             for (User currentUser : users) {
                 UserTab currentUserTab = new UserTab(currentUser);
+                if(currentUser.isConnected()) {
+                    currentUserTab.setToOnline();
+                }
                 currentUserTab.addActionListener(this.actionListener);
                 this.add(currentUserTab, usersTabsConstraints);
             }
@@ -61,10 +76,17 @@ public class UsersTabsPanel extends JPanel {
         userTabConstraints.fill = GridBagConstraints.VERTICAL;
 
         UserTab userTab = new UserTab(user);
+        if (user.isConnected()) {
+            userTab.setToOnline();
+        }
         userTab.addActionListener(this.actionListener);
-        this.add(userTab, userTabConstraints, this.getComponentCount()-1);
+        this.add(userTab, userTabConstraints, 0);
 
         this.revalidate();
         this.repaint();
+    }
+
+    public boolean isEmpty() {
+        return this.getComponentCount() < 2;
     }
 }

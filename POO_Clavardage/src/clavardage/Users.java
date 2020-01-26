@@ -1,9 +1,7 @@
 package clavardage;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-
-import javax.swing.*;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,18 +10,16 @@ public class Users {
 
     public Users() {
         users = new ArrayList<User>();
-        //create users for testing
-        /*
-        users.add(new User("John", "192.168.1.1", "11:11:11:11:11:11"));
-        users.add(new User("James", "192.168.1.2", "11:11:11:11:11:12"));
-        users.add(new User("Jack", "192.168.1.3", "11:11:11:11:11:13"));
-        users.add(new User("Johnson", "192.168.1.4", "11:11:11:11:11:14"));
-        users.add(new User("Jackson", "192.168.1.5", "11:11:11:11:11:15"));
-        */
     }
 
     public void addUser(User user) {
-        users.add(user);
+        this.users.add(user);
+    }
+
+    public void addUsers(ArrayList<User> users) {
+        for(User currentUser : users) {
+            this.users.add(currentUser);
+        }
     }
 
     public User getUserFromLogin(String login) {
@@ -39,7 +35,19 @@ public class Users {
         return foundUser;
     }
 
-    public User getUserFromIP(String ipAddress) throws IllegalArgumentException {
+    public User getUserFromMacAddress(String macAddress) {
+        Iterator i = this.users.iterator();
+        User foundUser = null;
+        while(i.hasNext() && foundUser == null) {
+            User currentUser = (User)(i.next());
+            if(currentUser.getMacAddress().equals(macAddress)) {
+                foundUser = currentUser;
+            }
+        }
+        return foundUser;
+    }
+
+    public User getUserFromIP(InetAddress ipAddress) throws IllegalArgumentException {
         Iterator i = this.users.iterator();
         User foundUser = null;
         while (i.hasNext() && foundUser == null) {
@@ -63,32 +71,29 @@ public class Users {
         return logins;
     }
 
-    /*
-    public ArrayList<UserButton> generateUserButtons() {
-        ArrayList<UserButton> userButtons = new ArrayList<UserButton>();
-        for(User currentUser : users) {
-            userButtons.add(new UserButton(currentUser));
+    public boolean isLoginAvailableAmongOtherUsers(String login) {
+        boolean loginAvailable = true;
+        Iterator i = this.users.iterator();
+        while(i.hasNext() && loginAvailable) {
+            User currentUser = (User)(i.next());
+            System.out.println("login : " + currentUser.getLogin());
+            if(currentUser.getLogin().equals(login) && currentUser.isConnected()) {
+                loginAvailable = false;
+            }
         }
-        return userButtons;
+        return loginAvailable;
     }
-    */
 
     public ArrayList<User> getList() {
         return this.users;
     }
 
-    /*
-    public ArrayList<JButton> generateUsersTabs() {
-        ArrayList<JButton> userButtons = new ArrayList<JButton>();
-        for(User currentUser : users) {
-            userButtons.add(new JButton(currentUser.getLogin()));
-        }
-        return userButtons;
-    }
-    */
-
     public User getArbitraryUser() {
-        return this.users.get(0);
+        if(this.users.size() > 0) {
+            return this.users.get(0);
+        } else {
+            return null;
+        }
     }
 
     public String toString() {
@@ -110,5 +115,21 @@ public class Users {
                 System.out.println(e);
             }
         }
+    }
+
+    public boolean noConnectedUser() {
+        boolean noConnectedUser = true;
+        Iterator i = this.users.iterator();
+        while(i.hasNext() && noConnectedUser) {
+            User currentUser = (User)(i.next());
+            if(currentUser.isConnected()) {
+                noConnectedUser = false;
+            }
+        }
+        return noConnectedUser;
+    }
+
+    public boolean noUserAtAll() {
+        return this.users.size() < 1;
     }
 }

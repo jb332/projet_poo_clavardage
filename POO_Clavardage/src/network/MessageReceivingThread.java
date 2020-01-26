@@ -2,19 +2,19 @@ package network;
 
 import clavardage.Clavardage;
 import clavardage.Message;
-import clavardage.MessageWay;
 import clavardage.User;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class MessageReceivingThread extends Thread {
     private Clavardage chat;
     private Socket link;
 
-    public MessageReceivingThread(Socket link, Clavardage chat) {
+    protected MessageReceivingThread(Socket link, Clavardage chat) {
         this.chat = chat;
         this.link = link;
         super.start();
@@ -23,7 +23,7 @@ public class MessageReceivingThread extends Thread {
     public void run() {
         System.out.println("I am a message receiving thread. I have been created to listen to messages coming from " + this.link.getRemoteSocketAddress());
         System.out.println(this.link.getRemoteSocketAddress().getClass());
-        String senderIP = ((InetSocketAddress)this.link.getRemoteSocketAddress()).getAddress().toString().replaceFirst("/","");
+        InetAddress senderIP = ((InetSocketAddress)this.link.getRemoteSocketAddress()).getAddress();
 
         User sender = null;
         try {
@@ -34,14 +34,14 @@ public class MessageReceivingThread extends Thread {
             System.exit(0);
         }
 
-        System.out.println("Sender : " + sender);
+        //System.out.println("Sender : " + sender);
 
         //if no connection had been established (which means this machine is the receiver not the sender) then set the user socket
         if(!sender.socketExists()) {
             sender.setSocket(link);
         }
 
-        System.out.println("Sender socket : " + sender.getSocket());
+        //System.out.println("Sender socket : " + sender.getSocket());
         Socket socket = sender.getSocket();
 
         try {
@@ -49,14 +49,16 @@ public class MessageReceivingThread extends Thread {
                 DataInputStream input = new DataInputStream(this.link.getInputStream());
                 //BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 //String line = reader.readLine();
-                String line = input.readUTF();
+                String content = input.readUTF();
 
-                System.out.println("Message received : \"" + line + "\"");
+                //System.out.println("Message received : \"" + content + "\"");
 
-                Message receivedMessage = new Message(line, MessageWay.RECEIVED);
+                Message receivedMessage = new Message(content, Message.RECEIVED);
 
                 this.chat.treatReceivedMessage(receivedMessage, sender);
             }
+        } catch (SocketException e) {
+            System.out.println("Socket closed for user : " + sender.getLogin() + " : " + e);
         } catch (IOException e) {
             System.out.println("Error : message could not be received : " + e);
         }
