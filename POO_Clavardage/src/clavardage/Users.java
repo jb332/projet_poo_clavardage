@@ -23,7 +23,6 @@ public class Users {
     }
 
     public User getUserFromLogin(String login) {
-        ArrayList<User> users = new ArrayList<User>();
         User foundUser = null;
         Iterator i = this.users.iterator();
         while (i.hasNext() && foundUser == null) {
@@ -36,8 +35,8 @@ public class Users {
     }
 
     public User getUserFromMacAddress(String macAddress) {
-        Iterator i = this.users.iterator();
         User foundUser = null;
+        Iterator i = this.users.iterator();
         while(i.hasNext() && foundUser == null) {
             User currentUser = (User)(i.next());
             if(currentUser.getMacAddress().equals(macAddress)) {
@@ -48,8 +47,8 @@ public class Users {
     }
 
     public User getUserFromIP(InetAddress ipAddress) throws IllegalArgumentException {
-        Iterator i = this.users.iterator();
         User foundUser = null;
+        Iterator i = this.users.iterator();
         while (i.hasNext() && foundUser == null) {
             User currentUser = (User)(i.next());
             if(currentUser.getIpAddress().equals(ipAddress)) {
@@ -63,21 +62,13 @@ public class Users {
         }
     }
 
-    public ArrayList<String> getLogins() {
-        ArrayList<String> logins = new ArrayList<String>();
-        for(User currentUser: this.users) {
-            logins.add(currentUser.getLogin());
-        }
-        return logins;
-    }
-
-    public boolean isLoginAvailableAmongOtherUsers(String login) {
+    public boolean isLoginAvailableAmongOtherUsers(String login, String macAddress) {
         boolean loginAvailable = true;
         Iterator i = this.users.iterator();
         while(i.hasNext() && loginAvailable) {
             User currentUser = (User)(i.next());
             System.out.println("login : " + currentUser.getLogin());
-            if(currentUser.getLogin().equals(login) && currentUser.isConnected()) {
+            if(currentUser.getLogin().equals(login) && currentUser.isConnected() && currentUser.getMacAddress() != macAddress) {
                 loginAvailable = false;
             }
         }
@@ -115,21 +106,5 @@ public class Users {
                 System.out.println(e);
             }
         }
-    }
-
-    public boolean noConnectedUser() {
-        boolean noConnectedUser = true;
-        Iterator i = this.users.iterator();
-        while(i.hasNext() && noConnectedUser) {
-            User currentUser = (User)(i.next());
-            if(currentUser.isConnected()) {
-                noConnectedUser = false;
-            }
-        }
-        return noConnectedUser;
-    }
-
-    public boolean noUserAtAll() {
-        return this.users.size() < 1;
     }
 }

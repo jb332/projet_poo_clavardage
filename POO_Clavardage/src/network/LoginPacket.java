@@ -51,9 +51,9 @@ public abstract class LoginPacket {
                 break;
             case "RES":
                 if(data[1].equals("no")) {
-                    loginPacket = new ResponseLoginPacket(false);
+                    loginPacket = new ResponseLoginPacket(ResponseLoginPacket.DENIED);
                 } else {
-                    loginPacket = new ResponseLoginPacket(true, data[1], data[2]);
+                    loginPacket = new ResponseLoginPacket(ResponseLoginPacket.GRANTED, data[1], data[2]);
                 }
                 break;
             case "END":

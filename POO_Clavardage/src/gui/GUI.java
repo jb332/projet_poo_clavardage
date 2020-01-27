@@ -7,23 +7,34 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GUI implements ActionListener {
+    private static boolean instantiated = false;
+
     private Clavardage chat;
 
-    private MessagesHistoryPanel messageHistoryPane;
-    private UsersTabsPanel usersTabsPane;
-    private SendZonePanel sendZonePane;
     private ChatWindow chatWindow;
     private LoginWindow loginWindow;
 
     private User selectedUser;
 
-    public GUI(Clavardage chat) {
+    private GUI(Clavardage chat) {
         this.chat = chat;
         this.start();
     }
 
+    public static synchronized GUI instantiate(Clavardage chat) {
+        GUI gui = null;
+        if(!GUI.instantiated) {
+            GUI.instantiated = true;
+            gui = new GUI(chat);
+        } else {
+            System.out.println("Fatal error : GUI can not be instantiated twice");
+            System.exit(1);
+        }
+        return gui;
+    }
+
     //changes the message displayed upon selecting another user
-    private void changeUserAndUpdateMessages(User selectedUser) {
+    private void changeSelectedUserAndUpdateMessages(User selectedUser) {
         if(this.selectedUser != null) {
             this.chatWindow.getUsersTabsPane().getUserTab(this.selectedUser).unSelect();
         }
@@ -53,7 +64,7 @@ public class GUI implements ActionListener {
         this.chatWindow.getUsersTabsPane().loadUsers(this.chat.getUsers().getList());
         //selecting a random user to start
         User selectedUser = this.chat.getUsers().getArbitraryUser();
-        this.changeUserAndUpdateMessages(selectedUser);
+        this.changeSelectedUserAndUpdateMessages(selectedUser);
     }
 
     public void sendMessage(Message sentMessage, User receiver) {
@@ -95,44 +106,21 @@ public class GUI implements ActionListener {
                 this.chat.connect(login);
                 break;
             case "Edit":
-                System.out.println("Change login button clicked");
+                this.switchToLoginWindow(true);
                 break;
             default:
                 User selectedUser = this.chat.getUsers().getUserFromLogin(buttonName);
-                changeUserAndUpdateMessages(selectedUser);
+                changeSelectedUserAndUpdateMessages(selectedUser);
         }
-
-        /*
-        if(buttonName.equals(">")) {
-            String content = this.chatWindow.getSendZonePane().getText();
-            if(!content.equals("")) {
-                Message messageSent = new Message(content, Message.SENT);
-                this.sendMessage(messageSent, this.selectedUser);
-            }
-        } else if(buttonName.equals("OK")) {
-            this.loginWindow.setVisible(false);
-
-            String login = this.loginWindow.getLogin();
-            this.chat.setMyLogin(login);
-
-            if(this.chatWindow == null) {
-                launchChatWindow();
-            } else {
-                this.chatWindow.setVisible(true);
-            }
-
-            this.chatWindow.getLoginPane().changeMyLogin(login);
-            this.chat.connect(login);
-        } else {
-            User selectedUser = this.chat.getUsers().getUserFromLogin(buttonName);
-            changeUserAndUpdateMessages(selectedUser);
-        }
-        */
     }
 
-    public void switchToLoginWindow() {
+    public void switchToLoginWindow(boolean isLoginChangeVoluntary) {
         this.chatWindow.setVisible(false);
-        this.loginWindow.setTitle("Le pseudo choisi est déjà pris, saisissez un autre pseudo : ");
+        if(isLoginChangeVoluntary) {
+            this.loginWindow.setLabelToLoginChange();
+        } else {
+            this.loginWindow.setLabelToLoginDenied();
+        }
         this.loginWindow.setVisible(true);
     }
 
@@ -160,8 +148,8 @@ public class GUI implements ActionListener {
         }
     }
 
-    public void displayLoginChange(User user) {
-        this.chatWindow.getUsersTabsPane().getUserTab(user).setText(user.getLogin());
+    public void updateUserLogin(String newLogin, String formerLogin) {
+        this.chatWindow.getUsersTabsPane().getUserTab(formerLogin).setText(newLogin);
     }
 
     //change color to connected and update login
@@ -180,7 +168,7 @@ public class GUI implements ActionListener {
         this.chatWindow.getUsersTabsPane().addUser(user);
         //if the added user is the first one, it is automatically selected
         if(userPanelIsEmpty) {
-            this.changeUserAndUpdateMessages(user);
+            this.changeSelectedUserAndUpdateMessages(user);
         }
     }
 }

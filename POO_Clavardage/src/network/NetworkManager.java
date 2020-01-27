@@ -80,6 +80,7 @@ public class NetworkManager {
             }
         }
         if(myIpAddress == null) {
+
             System.out.println("Fatal error : no valid IP address found for the active interface");
             System.exit(1);
         }

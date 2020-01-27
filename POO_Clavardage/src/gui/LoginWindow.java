@@ -5,22 +5,24 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame {
-    private JTextField loginTextZone;
-    private JButton okButton;
+    JTextField loginTextZone;
+    JLabel labelForTextZone;
 
     protected LoginWindow(ActionListener actionListener) {
-        super("Saisissez un pseudo :");
+        super("Connection");
 
         this.loginTextZone = new JTextField();
-        this.okButton = new JButton("OK");
-        this.okButton.addActionListener(actionListener);
+        JButton okButton = new JButton("OK");
+        this.labelForTextZone = new JLabel("Pick a login :");
+        okButton.addActionListener(actionListener);
 
         JPanel mainPane = new JPanel(new BorderLayout());
         mainPane.add(this.loginTextZone);
-        mainPane.add(this.okButton, BorderLayout.EAST);
+        mainPane.add(okButton, BorderLayout.EAST);
+        mainPane.add(this.labelForTextZone, BorderLayout.NORTH);
 
         this.setPreferredSize(new Dimension(300,70));
-        this.getRootPane().setDefaultButton(this.okButton);
+        this.getRootPane().setDefaultButton(okButton);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add(mainPane, BorderLayout.CENTER);
         this.pack();
@@ -29,5 +31,13 @@ public class LoginWindow extends JFrame {
 
     protected String getLogin() {
         return this.loginTextZone.getText();
+    }
+
+    protected void setLabelToLoginDenied() {
+        this.labelForTextZone.setText("Sorry, this login is not available. Please pick another one :");
+    }
+
+    protected void setLabelToLoginChange() {
+        this.labelForTextZone.setText("Pick your new login :");
     }
 }

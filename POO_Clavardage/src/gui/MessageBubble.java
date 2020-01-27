@@ -18,13 +18,14 @@ public class MessageBubble extends JPanel {
         JPanel auxPane = new JPanel(new BorderLayout());
         auxPane.add(content);
         auxPane.add(date, BorderLayout.SOUTH);
-        auxPane.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, this.getBackground()));
 
         if(message.isSent()) {
             auxPane.setBackground(Color.BLUE);
         } else {
             auxPane.setBackground(Color.PINK);
         }
+        
+        auxPane.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, this.getBackground()));
 
         this.add(auxPane, BorderLayout.NORTH);
     }

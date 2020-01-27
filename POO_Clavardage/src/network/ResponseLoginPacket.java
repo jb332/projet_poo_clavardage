@@ -1,12 +1,15 @@
 package network;
 
 public class ResponseLoginPacket extends LoginPacket {
+    protected static final boolean DENIED = false;
+    protected static final boolean GRANTED = true;
+
     private String respondingUserLogin;
     private String respondingUserMacAddress;
 
     protected ResponseLoginPacket(boolean isLoginGranted) {
         if(isLoginGranted) {
-            System.out.println("Bad constructor used : if login is granted, a login is required");
+            System.out.println("Bad constructor used : if login is granted then you should provide a login and say if this packet is connection request or a login change request. If this packet is a connection request you must also provide a login");
             System.exit(1);
         } else {
             this.respondingUserLogin = null;

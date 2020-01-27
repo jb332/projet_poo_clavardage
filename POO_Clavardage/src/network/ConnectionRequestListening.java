@@ -1,7 +1,6 @@
 package network;
 
 import clavardage.Clavardage;
-import clavardage.User;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -29,29 +28,24 @@ public class ConnectionRequestListening extends Thread {
                         String requestingUserMacAddress = receivedRequestLoginPacket.getRequestingUserMacAddress();
                         InetAddress requestingUserIpAddress = receivedRequestLoginPacket.getSourceAddress();
 
-                        if (this.chat.isLoginAvailable(requestingUserLogin)) {
-                            (new ResponseLoginPacket(true, this.chat.getMyLogin(), NetworkManager.getMyMacAddress())).sendPacket(this.udpSocket, requestingUserIpAddress);
-                            System.out.println(requestingUserIpAddress.getHostAddress());
-                            User newConnectedUser = new User(requestingUserLogin, requestingUserIpAddress, requestingUserMacAddress);
-                            this.chat.addConnectedUser(newConnectedUser);
+                        if (this.chat.isLoginAvailable(requestingUserLogin, requestingUserMacAddress)) {
+                            boolean isAChangeLoginRequest = this.chat.treatConnectionRequest(requestingUserLogin, requestingUserIpAddress, requestingUserMacAddress);
+                            if(!isAChangeLoginRequest) {
+                                (new ResponseLoginPacket(ResponseLoginPacket.GRANTED, this.chat.getMyLogin(), NetworkManager.getMyMacAddress())).sendPacket(this.udpSocket, requestingUserIpAddress);
+                            }
                         } else {
-                            (new ResponseLoginPacket(false)).sendPacket(this.udpSocket, requestingUserIpAddress);
+                            (new ResponseLoginPacket(ResponseLoginPacket.DENIED)).sendPacket(this.udpSocket, requestingUserIpAddress);
                         }
                         break;
                     case "RES":
                         ResponseLoginPacket receivedResponseLoginPacket = (ResponseLoginPacket) receivedLoginPacket;
-
-                        System.out.println(receivedResponseLoginPacket.isLoginGranted());
-                        System.out.println(receivedResponseLoginPacket.getDataToSend());
 
                         if(receivedResponseLoginPacket.isLoginGranted()) {
                             String respondingUserLogin = receivedResponseLoginPacket.getRespondingUserLogin();
                             String respondingUserMacAddress = receivedResponseLoginPacket.getRespondingUserMacAddress();
                             InetAddress respondingUserIpAddress = receivedResponseLoginPacket.getSourceAddress();
 
-                            User newConnectedUser = new User(respondingUserLogin, respondingUserIpAddress, respondingUserMacAddress);
-                            System.out.println(newConnectedUser);
-                            this.chat.addConnectedUser(newConnectedUser);
+                            this.chat.treatConnectionRequest(respondingUserLogin, respondingUserIpAddress, respondingUserMacAddress);
                         } else {
                             this.chat.notifyLoginDeny();
                         }
@@ -60,7 +54,7 @@ public class ConnectionRequestListening extends Thread {
                         LogoutPacket receivedLogoutPacket = (LogoutPacket) receivedLoginPacket;
 
                         String loggingOutUserMacAddress = receivedLogoutPacket.getRequestingUserMacAddress();
-                        this.chat.removeUser(loggingOutUserMacAddress);
+                        this.chat.disconnectUser(loggingOutUserMacAddress);
                 }
             }
         }

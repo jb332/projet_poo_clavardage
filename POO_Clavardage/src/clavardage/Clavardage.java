@@ -4,6 +4,7 @@ import database.DataBaseInterface;
 import gui.GUI;
 import network.NetworkManager;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class Clavardage {
@@ -14,13 +15,13 @@ public class Clavardage {
     private Users users;
     private String myLogin;
 
-    public Clavardage() {
-        this.db = new DataBaseInterface(this);
+    private Clavardage() {
+        this.db = DataBaseInterface.instantiate(this);
 
         this.users = new Users();
         this.users.addUsers(this.db.getUsers());
 
-        this.gui = new GUI(this);
+        this.gui = GUI.instantiate(this);
 
         //plan database shutdown when the user leaves the application
         Clavardage thisBis = this;
@@ -44,7 +45,7 @@ public class Clavardage {
         this.gui.notifyMessageReception(message, sender);
     }
 
-    public void addConnectedUser(User connectedUser) {
+    public boolean treatConnectionRequest(String requestingUserLogin, InetAddress requestingUserIPAddress, String requestingUserMacAddress) {
         //penser a exclure l'utilisateur deconnecté correspondant en adresse mac avec l'utilisateur connecté ajouté
         /*
         User disconnectedUserHavingTheSameLogin = this.users.getUserFromLogin(connectedUser.getLogin());
@@ -55,24 +56,33 @@ public class Clavardage {
             this.gui.displayLoginChange(disconnectedUserHavingTheSameLogin);
         }
         */
-
+        boolean isAChangeLoginRequest = false;
         //if the new connected user already exists as a disconnected user, it is only modified instead of being created
-        User alreadyExistingDisconnectedUser = this.users.getUserFromMacAddress(connectedUser.getMacAddress());
-        if(alreadyExistingDisconnectedUser == null) {
-            this.users.addUser(connectedUser);
-            this.gui.addUser(connectedUser);
-            this.db.addUser(connectedUser);
+        User alreadyExistingUser = this.users.getUserFromMacAddress(requestingUserMacAddress);
+        //there is no user, connected or disconnected for that mac address, so a new connected user is created
+        if(alreadyExistingUser == null) {
+            User newConnectedUser = new User(requestingUserLogin, requestingUserIPAddress, requestingUserMacAddress);
+            this.users.addUser(newConnectedUser);
+            this.gui.addUser(newConnectedUser);
+            this.db.addUser(newConnectedUser);
         } else {
-            System.out.println("User already exists");
-            String formerLogin = alreadyExistingDisconnectedUser.getLogin();
-            alreadyExistingDisconnectedUser.connect(connectedUser.getIpAddress());
-            alreadyExistingDisconnectedUser.changeLogin(connectedUser.getLogin());
-            this.gui.connectUser(alreadyExistingDisconnectedUser, formerLogin);
-            this.db.updateLogin(alreadyExistingDisconnectedUser);
+            String formerLogin = alreadyExistingUser.getLogin();
+            alreadyExistingUser.changeLogin(requestingUserLogin);
+            //there is already a connected user for that mac address, this means the user just wants to change his pseudo
+            if(alreadyExistingUser.isConnected()) {
+                this.gui.updateUserLogin(requestingUserLogin, formerLogin);
+                isAChangeLoginRequest = true;
+            //there is already a disconnected user for that mac address, so his status is changed to connected
+            } else {
+                alreadyExistingUser.connect(requestingUserIPAddress);
+                this.gui.connectUser(alreadyExistingUser, formerLogin);
+            }
+            this.db.updateLogin(alreadyExistingUser);
         }
+        return isAChangeLoginRequest;
     }
 
-    public void removeUser(String macAddress) {
+    public void disconnectUser(String macAddress) {
         User userToRemove = this.users.getUserFromMacAddress(macAddress);
         if(userToRemove != null) {
             userToRemove.disconnect();
@@ -90,12 +100,12 @@ public class Clavardage {
         return false;
     }
 
-    public boolean isLoginAvailable(String login) {
-        return !this.myLogin.equals(login) && this.users.isLoginAvailableAmongOtherUsers(login);
+    public boolean isLoginAvailable(String login, String macAddress) {
+        return !this.myLogin.equals(login) && this.users.isLoginAvailableAmongOtherUsers(login, macAddress);
     }
 
     public void notifyLoginDeny() {
-        this.gui.switchToLoginWindow();
+        this.gui.switchToLoginWindow(false);
     }
 
     public Users getUsers() {

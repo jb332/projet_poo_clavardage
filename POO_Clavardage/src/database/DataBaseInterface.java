@@ -4,23 +4,24 @@ import clavardage.Clavardage;
 import clavardage.Message;
 import clavardage.User;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.lang.Runtime;
 
 public class DataBaseInterface {
+    private static boolean instantiated = false;
+
     private Clavardage chat;
     private Connection connection;
 
     private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private final String dataBaseName = "clavarbase";
 
-
-    public DataBaseInterface(Clavardage chat) {
+    private DataBaseInterface(Clavardage chat) {
         this.chat = chat;
 
-        //connect to the database and create one if
         connectToTheDataBaseAndCreateOneIfNecessary();
 
         //create messages for testing
@@ -61,6 +62,18 @@ public class DataBaseInterface {
                 thisBis.disconnectAndShutDown();
             }
         });
+    }
+
+    public static synchronized DataBaseInterface instantiate(Clavardage chat) {
+        DataBaseInterface db = null;
+        if(!DataBaseInterface.instantiated) {
+            DataBaseInterface.instantiated = true;
+            db = new DataBaseInterface(chat);
+        } else {
+            System.out.println("Fatal error : DataBaseInterface can not be instantiated twice");
+            System.exit(1);
+        }
+        return db;
     }
 
     public void addUser(User user) {
