@@ -37,13 +37,26 @@ public class NetworkManager {
         return sb.toString();
     }
 
+    private static boolean hasIPv4Address(NetworkInterface networkInterface) {
+        Enumeration<InetAddress> interfaceAddresses = networkInterface.getInetAddresses();
+        boolean iPv4AddressFound = false;
+        while(!iPv4AddressFound && interfaceAddresses.hasMoreElements()) {
+            InetAddress currentAddress = interfaceAddresses.nextElement();
+            System.out.println(currentAddress.getHostName());
+            if(currentAddress instanceof Inet4Address && !currentAddress.isLoopbackAddress()) {
+                iPv4AddressFound = true;
+            }
+        }
+        return iPv4AddressFound;
+    }
+
     private static NetworkInterface getActiveInterface() {
         NetworkInterface activeInterface = null;
         try {
             Enumeration<NetworkInterface> interfacesList = NetworkInterface.getNetworkInterfaces();
             while (activeInterface == null && interfacesList.hasMoreElements()) {
                 NetworkInterface currentInterface = interfacesList.nextElement();
-                if (currentInterface.isUp() && !currentInterface.isLoopback()) {
+                if (currentInterface.isUp() && !currentInterface.isLoopback() && hasIPv4Address(currentInterface)) {
                     activeInterface = currentInterface;
                 }
             }
@@ -75,6 +88,7 @@ public class NetworkManager {
         InetAddress myIpAddress = null;
         while(myIpAddress == null && interfaceAddresses.hasMoreElements()) {
             InetAddress currentAddress = interfaceAddresses.nextElement();
+            System.out.println(currentAddress.getHostName());
             if(currentAddress instanceof Inet4Address && !currentAddress.isLoopbackAddress()) {
                 myIpAddress = currentAddress;
             }
