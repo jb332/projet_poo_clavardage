@@ -51,7 +51,7 @@ public class Users {
         Iterator i = this.users.iterator();
         while (i.hasNext() && foundUser == null) {
             User currentUser = (User)(i.next());
-            if(currentUser.getIpAddress().equals(ipAddress)) {
+            if(currentUser.isConnected() && currentUser.getIpAddress().equals(ipAddress)) {
                 foundUser = currentUser;
             }
         }
