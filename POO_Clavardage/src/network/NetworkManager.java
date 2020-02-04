@@ -8,16 +8,43 @@ import java.net.*;
 import java.io.*;
 import java.util.Enumeration;
 
+/**
+ * Manage the messages going through the network. Allows to send and receive chat messages and send connection requests.
+ */
 public class NetworkManager {
+    /**
+     * Used to ensure single instantiation.
+     */
+    private static boolean instantiated = false;
 
+    /**
+     * The controller.
+     */
     private Clavardage chat;
+    /**
+     * A UDP socket used to send and receive login packets.
+     */
     private DatagramSocket udpSocket;
 
+    /**
+     * The port used for sending login messages.
+     */
     protected static final int loginPort = 10000;
+    /**
+     * The port used for sending chat messages.
+     */
     protected static final int messagePort = 20000;
 
+    /**
+     * The broadcast IP address.
+     */
     public static final InetAddress broadcastIPAddress = NetworkManager.stringToInetAddress("255.255.255.255");
 
+    /**
+     * Convert a string to an InetAddress object.
+     * @param address the string representing the IP address you want to convert
+     * @return the IP address as an InetAddress object
+     */
     private static InetAddress stringToInetAddress(String address) {
         InetAddress inetAddress = null;
         try {
@@ -29,14 +56,24 @@ public class NetworkManager {
         return inetAddress;
     }
 
-    private static String bytesToHex(byte[] hashInBytes) {
+    /**
+     * Convert bytes to an hexadecimal string.
+     * @param bytes the bytes you want to convert
+     * @return an hexadecimal conversion as a string
+     */
+    private static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
-        for (byte b : hashInBytes) {
+        for (byte b : bytes) {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
     }
 
+    /**
+     * Check if a network interface has an IPv4 address.
+     * @param networkInterface the network interface for which you want to check for an IPv4 address
+     * @return true if the given network interface has an IPv4 address, false otherwise
+     */
     private static boolean hasIPv4Address(NetworkInterface networkInterface) {
         Enumeration<InetAddress> interfaceAddresses = networkInterface.getInetAddresses();
         boolean iPv4AddressFound = false;
@@ -50,6 +87,10 @@ public class NetworkManager {
         return iPv4AddressFound;
     }
 
+    /**
+     * Get the active network interface to use for communication with other machines.
+     * @return the active network interface
+     */
     private static NetworkInterface getActiveInterface() {
         NetworkInterface activeInterface = null;
         try {
@@ -71,6 +112,10 @@ public class NetworkManager {
         return activeInterface;
     }
 
+    /**
+     * Get the MAC address of this machine.
+     * @return my MAC address
+     */
     protected static String getMyMacAddress() {
         String myMacAddress = null;
         try {
@@ -83,6 +128,10 @@ public class NetworkManager {
         return myMacAddress;
     }
 
+    /**
+     * Get the IP address of this machine.
+     * @return my IP address
+     */
     protected static InetAddress getMyIpAddress() {
         Enumeration<InetAddress> interfaceAddresses = NetworkManager.getActiveInterface().getInetAddresses();
         InetAddress myIpAddress = null;
@@ -101,7 +150,11 @@ public class NetworkManager {
         return myIpAddress;
     }
 
-    public NetworkManager(Clavardage chat) {
+    /**
+     * Constructor.
+     * @param chat the controller
+     */
+    private NetworkManager(Clavardage chat) {
         this.chat = chat;
 
         //create UDP socket
@@ -124,13 +177,42 @@ public class NetworkManager {
         });
     }
 
-    public void sendConnectionRequest(String login) {
-        String macAddress = NetworkManager.getMyMacAddress();
-        RequestLoginPacket requestLoginPacket = new RequestLoginPacket(login, macAddress);
-        requestLoginPacket.sendPacket(this.udpSocket, NetworkManager.broadcastIPAddress);
-        System.out.println("Login request message sent");
+    /**
+     * Create an instance of the class. It raises an error if called twice.
+     * @return an instance of the class
+     * @param chat the controller
+     */
+    public static synchronized NetworkManager instantiate(Clavardage chat) {
+        NetworkManager net = null;
+        if(!NetworkManager.instantiated) {
+            NetworkManager.instantiated = true;
+            net = new NetworkManager(chat);
+        } else {
+            System.out.println("Fatal error : DataBaseInterface can not be instantiated twice");
+            System.exit(1);
+        }
+        return net;
     }
 
+    /**
+     * Send a connection / login change request to all users.
+     * @param login the login you picked
+     */
+    public void sendConnectionRequest(String login) {
+        if(login.equals("no")) {
+            //the login "no" is forbidden because it is a keyword used to deny login
+            this.chat.notifyLoginDeny();
+        } else {
+            String macAddress = NetworkManager.getMyMacAddress();
+            RequestLoginPacket requestLoginPacket = new RequestLoginPacket(login, macAddress);
+            requestLoginPacket.sendPacket(this.udpSocket, NetworkManager.broadcastIPAddress);
+            System.out.println("Login request message sent");
+        }
+    }
+
+    /**
+     * Send a disconnection request to all users.
+     */
     public void sendDisconnectionWarning() {
         String macAddress = NetworkManager.getMyMacAddress();
         LogoutPacket logoutPacket = new LogoutPacket(macAddress);
@@ -138,6 +220,11 @@ public class NetworkManager {
         System.out.println("Logout message sent");
     }
 
+    /**
+     * Send a chat message to a distant user.
+     * @param message the message you want to send
+     * @param receiver the receiver
+     */
     public void sendMessage(Message message, User receiver) {
         Socket socket = null;
         //check if a connection already exists
@@ -163,7 +250,6 @@ public class NetworkManager {
 
         try {
             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
-            //oos.writeChars(message.getContent());
             oos.writeUTF(message.getContent());
         } catch (IOException e) {
             System.out.println("Could not send message to " + receiver + " : " + e);

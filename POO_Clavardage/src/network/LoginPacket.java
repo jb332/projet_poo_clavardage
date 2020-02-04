@@ -5,13 +5,27 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+/**
+ * An abstract class representing all the packets sent to handle login changes, connections and disconnections.
+ */
 public abstract class LoginPacket {
+    /**
+     * The source address of the packet.
+     */
     private InetAddress sourceAddress = null;
 
+    /**
+     * Get the source address of this packet.
+     * @return the source address of this packet
+     */
     protected InetAddress getSourceAddress() {
         return this.sourceAddress;
     }
 
+    /**
+     * Get the type of this packet as a three letters flag.
+     * @return the flag of this packet
+     */
     protected String getFlag() {
         String className = this.getClass().getSimpleName();
         String flag = null;
@@ -32,6 +46,11 @@ public abstract class LoginPacket {
         return flag;
     }
 
+    /**
+     * Deserialization method used to rebuild a login packet from data received on a socket. The login packet created must be cast to the right type. To know this type, the "getFlag" method must be used.
+     * @param udpSocket the UDP socket you want to listen on for incoming packets.
+     * @return a login packet.
+     */
     protected static LoginPacket receivePacket(DatagramSocket udpSocket) {
         byte buffer[] = new byte[10000];
         DatagramPacket dataReceived = new DatagramPacket(buffer, buffer.length);
@@ -68,8 +87,17 @@ public abstract class LoginPacket {
         return loginPacket;
     }
 
+    /**
+     * Serialization abstract method used to convert this packet to a string that is to be sent over the network.
+     * @return the serialized packet
+     */
     protected abstract String getDataToSend();
 
+    /**
+     * Send the packet over the network to an IP address using an UDP socket.
+     * @param udpSocket the UDP socket you want to use to send the packet over the network
+     * @param destinationAddress the destination IP address
+     */
     protected void sendPacket(DatagramSocket udpSocket, InetAddress destinationAddress) {
         byte buffer[] = this.getDataToSend().getBytes();
         try {

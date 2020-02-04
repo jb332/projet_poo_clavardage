@@ -7,14 +7,23 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The panel containing the messages exchanged with a user.
+ */
 public class MessagesHistoryPanel extends JPanel {
-
+    /**
+     * Constructor.
+     */
     public MessagesHistoryPanel() {
         super(new GridBagLayout());
         super.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.setPreferredSize(new Dimension(0, 0)); //magie noire
     }
 
+    /**
+     * Remove currently displayed messages and load a messages list
+     * @param messages the messages you want to display
+     */
     public void updateMessagesBubbles(ArrayList<Message> messages) {
         this.removeAll();
 
@@ -32,9 +41,6 @@ public class MessagesHistoryPanel extends JPanel {
                 } else {
                     messagesBubblesConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
                 }
-                //on met une weighty de 0 pour tous les Components du JPanel sauf le dernier de manière à ce qu'ils prennent la place dont ils ont besoin uniquement
-                //on met une weighty de 1 au dernier Component pour qu'il prenne toute la place restante (si on ne fait pas ça, les cellules du JPanel se centrent et les messages apparaissent au centre au lieu d'apparaître en haut
-                //de manière à ce que le texte du dernier Component s'affiche à la suite des autres Component, on a indiqué plus haut (JLabel.TOP) aux Components d'afficher le texte en haut
                 if (currentMessage.equals(messages.get(messages.size() - 1))) {
                     messagesBubblesConstraints.weighty = 1;
                 } else {
@@ -49,8 +55,11 @@ public class MessagesHistoryPanel extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Display a message.
+     * @param message the message you want to display
+     */
     public void addMessageBubble(Message message) {
-        //s'il y a au moins un message dans le Panel, on règle la weighty du dernier message à 0 et on ajoute notre message avec une weighty de 1
         if(this.getComponents().length != 0) {
             Integer lastMessageBubbleIndex = this.getComponents().length - 1;
             MessageBubble lastMessageBubble = (MessageBubble) (this.getComponent(lastMessageBubbleIndex));

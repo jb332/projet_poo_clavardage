@@ -5,9 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame {
+    /**
+     * The login text zone.
+     */
     JTextField loginTextZone;
+    /**
+     * The login label indicating the user to pick a login.
+     */
     JLabel labelForTextZone;
 
+    /**
+     * Create the login window.
+     * @param actionListener an action listener. GUI plays this role since all events are supposed to be handled by it.
+     */
     protected LoginWindow(ActionListener actionListener) {
         super("Connection");
 
@@ -29,14 +39,24 @@ public class LoginWindow extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Get my displayed login.
+     * @return my displayed login
+     */
     protected String getLogin() {
         return this.loginTextZone.getText();
     }
 
+    /**
+     * Set the login panel label to login denied.
+     */
     protected void setLabelToLoginDenied() {
         this.labelForTextZone.setText("Sorry, this login is not available. Please pick another one :");
     }
 
+    /**
+     * Set the login panel label to login change.
+     */
     protected void setLabelToLoginChange() {
         this.labelForTextZone.setText("Pick your new login :");
     }

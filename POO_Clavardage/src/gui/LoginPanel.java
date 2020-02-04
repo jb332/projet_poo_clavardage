@@ -6,15 +6,23 @@ import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The panel containing the user login and the change login button.
+ */
 public class LoginPanel extends JPanel {
+    private JLabel loginText;
+    /**
+     * Constructor.
+     * @param actionListener an action listener. GUI plays this role since all events are supposed to be handled by it.
+     */
     public LoginPanel(ActionListener actionListener) {
         super(new BorderLayout());
 
-        JLabel loginText = new JLabel();
+        this.loginText = new JLabel();
         JButton changeLoginButton = new JButton("Edit");
         changeLoginButton.addActionListener(actionListener);
 
-        this.add(loginText);
+        this.add(this.loginText);
         this.add(changeLoginButton, BorderLayout.EAST);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 1, 0);
@@ -24,7 +32,11 @@ public class LoginPanel extends JPanel {
         this.setBorder(compoundBorder);
     }
 
+    /**
+     * Change my displayed login.
+     * @param myLogin my new login to display
+     */
     public void changeMyLogin(String myLogin) {
-        ((JLabel)this.getComponent(0)).setText(myLogin);
+        this.loginText.setText(myLogin);
     }
 }

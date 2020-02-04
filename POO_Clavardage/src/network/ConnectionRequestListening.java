@@ -5,17 +5,34 @@ import clavardage.Clavardage;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+/**
+ * A thread to listen for connection requests.
+ */
 public class ConnectionRequestListening extends Thread {
+    /**
+     * The controller.
+     */
     private Clavardage chat;
+    /**
+     * The UDP socket used to receive and send login messages.
+     */
     private DatagramSocket udpSocket;
 
 
+    /**
+     * Constructor.
+     * @param chat the controller
+     * @param udpSocket the UDP socket used for communication
+     */
     protected ConnectionRequestListening(Clavardage chat, DatagramSocket udpSocket){
         this.chat = chat;
         this.udpSocket = udpSocket;
         super.start();
     }
 
+    /**
+     * The method launched by the thread. It listens for incoming UDP messages and reacts in the appropriate way.
+     */
     public void run() {
         while(true) {
             LoginPacket receivedLoginPacket = LoginPacket.receivePacket(this.udpSocket);

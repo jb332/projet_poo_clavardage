@@ -1,18 +1,34 @@
 package gui;
 
-import clavardage.Clavardage;
-import clavardage.User;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The main window where you can chat.
+ */
 public class ChatWindow extends JFrame {
+    /**
+     * The panel containing the messages exchanged with a user.
+     */
     private MessagesHistoryPanel messageHistoryPane;
+    /**
+     * The panel containing the users you can select.
+     */
     private UsersTabsPanel usersTabsPane;
+    /**
+     * The panel containing the sending text zone and the send button.
+     */
     private SendZonePanel sendZonePane;
+    /**
+     * The panel containing the user login and the change login button.
+     */
     private LoginPanel loginPane;
 
+    /**
+     * Constructor.
+     * @param actionListener an action listener. GUI plays this role since all events are supposed to be handled by it.
+     */
     public ChatWindow(ActionListener actionListener) {
         super("Clavardage");
 
@@ -68,18 +84,34 @@ public class ChatWindow extends JFrame {
         super.setVisible(true);
     }
 
+    /**
+     * Get the message history panel.
+     * @return the message history panel
+     */
     public MessagesHistoryPanel getMessageHistoryPane() {
         return this.messageHistoryPane;
     }
 
+    /**
+     * Get the users tabs panel.
+     * @return the users tabs panel
+     */
     public UsersTabsPanel getUsersTabsPane() {
         return this.usersTabsPane;
     }
 
+    /**
+     * Get the send zone panel.
+     * @return the send zone panel.
+     */
     public SendZonePanel getSendZonePane() {
         return this.sendZonePane;
     }
 
+    /**
+     * Get the login panel.
+     * @return the login panel
+     */
     public LoginPanel getLoginPane() {
         return this.loginPane;
     }

@@ -6,7 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A panel representing a message bubble.
+ */
 public class MessageBubble extends JPanel {
+    /**
+     * Constructor.
+     * @param message the corresponding message
+     */
     public MessageBubble(Message message) {
         super(new BorderLayout());
 

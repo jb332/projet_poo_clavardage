@@ -4,56 +4,46 @@ import clavardage.Clavardage;
 import clavardage.Message;
 import clavardage.User;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.lang.Runtime;
 
+/**
+ * Model. Handle data storage and retrieving.
+ */
 public class DataBaseInterface {
+    /**
+     * Used to ensure single instantiation.
+     */
     private static boolean instantiated = false;
 
+    /**
+     * The controller.
+     */
     private Clavardage chat;
+    /**
+     * Represents a connection to the database.
+     */
     private Connection connection;
 
+    /**
+     * The name of the driver class.
+     */
     private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    /**
+     * Name of the database. The database directory will also have this name.
+     */
     private final String dataBaseName = "clavarbase";
 
+    /**
+     * Constructor.
+     * @param chat the controller
+     */
     private DataBaseInterface(Clavardage chat) {
         this.chat = chat;
 
         connectToTheDataBaseAndCreateOneIfNecessary();
-
-        //create messages for testing
-        /*
-        try {
-            this.connection.createStatement().execute("DELETE FROM messages");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        LocalDateTime dateTime = LocalDateTime.of(2019, 12, 15, 3, 27, 35);
-
-        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("John"));
-        storeMessage(new Message("Salut John, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("John"));
-        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("John"));
-
-        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("James"));
-        storeMessage(new Message("Salut James, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("James"));
-        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("James"));
-
-        //ATTENTION AUX APOSTROPHES
-        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Jack"));
-        storeMessage(new Message("T es mauvais Jack.", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Jack"));
-
-        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Johnson"));
-        storeMessage(new Message("Salut Johnson, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Johnson"));
-        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Johnson"));
-
-        storeMessage(new Message("Salut ! Comment ça va Jake ?", MessageWay.RECEIVED, dateTime), this.chat.getUsers().getUserFromLogin("Jackson"));
-        storeMessage(new Message("Salut Jackson, ça va super bien et toi ?!", MessageWay.SENT, dateTime.plusDays(1)), this.chat.getUsers().getUserFromLogin("Jackson"));
-        storeMessage(new Message("ça va, ça va. Immotep.", MessageWay.RECEIVED, dateTime.plusDays(2)), this.chat.getUsers().getUserFromLogin("Jackson"));
-        */
 
         //plan database shutdown when the user leaves the application
         DataBaseInterface thisBis = this;
@@ -64,6 +54,11 @@ public class DataBaseInterface {
         });
     }
 
+    /**
+     * Create an instance of the class. It raises an error if called twice.
+     * @param chat the controller
+     * @return an instance of the class
+     */
     public static synchronized DataBaseInterface instantiate(Clavardage chat) {
         DataBaseInterface db = null;
         if(!DataBaseInterface.instantiated) {
@@ -76,6 +71,10 @@ public class DataBaseInterface {
         return db;
     }
 
+    /**
+     * Add a user to the known users list in the database.
+     * @param user the user you want to add to the known users list
+     */
     public void addUser(User user) {
         String macAddress = user.getMacAddress();
         String login = user.getLogin();
@@ -94,6 +93,10 @@ public class DataBaseInterface {
         }
     }
 
+    /**
+     * Update a user's login in the database.
+     * @param user the user you want to update the login of
+     */
     public void updateLogin(User user) {
         String login = user.getLogin();
         String macAddress = user.getMacAddress();
@@ -113,6 +116,10 @@ public class DataBaseInterface {
         }
     }
 
+    /**
+     * Get the known users from the database.
+     * @return the known users
+     */
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
 
@@ -135,6 +142,11 @@ public class DataBaseInterface {
         }
     }
 
+    /**
+     * Store a message in the database.
+     * @param message the message you want to store
+     * @param distantUser the distant sender/receiver
+     */
     public void storeMessage(Message message, User distantUser) {
         String content = message.getContent();
         String distantUserMacAddress = distantUser.getMacAddress();
@@ -157,6 +169,11 @@ public class DataBaseInterface {
         }
     }
 
+    /**
+     * Get the messages exchanged with a user from the database.
+     * @param user the user you want to get the exchanged messages of
+     * @return the messages exchanged with the specified user
+     */
     public ArrayList<Message> getMessages(User user) {
         ArrayList<Message> messages = new ArrayList<Message>();
 
@@ -186,7 +203,10 @@ public class DataBaseInterface {
         }
     }
 
-    public void connectToTheDataBaseAndCreateOneIfNecessary() {
+    /**
+     * Connect to the database and create one if none exists. It is meant to be called in the constructor.
+     */
+    private void connectToTheDataBaseAndCreateOneIfNecessary() {
         try {
             //database driver initialization
             Class.forName(this.driver);
@@ -242,6 +262,9 @@ public class DataBaseInterface {
         }
     }
 
+    /**
+     * Disconnect from the database and shut it down.
+     */
     public void disconnectAndShutDown() {
         //closing the connection and shuting down the database
         try {
